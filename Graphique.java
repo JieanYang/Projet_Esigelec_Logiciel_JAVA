@@ -27,41 +27,9 @@ import java.util.List;
  */
 
 public class Graphique extends JFrame implements ActionListener {
-	/**
-	 * label saisir un client
-	 */
-	private JLabel labelsaisirunclient;
+	
+	private JPanel containerPanel;
 
-	/**
-	 * label saisir une maintenance
-	 */
-	private JLabel labelsaisirunemaintenance;
-
-	/**
-	 * label validation d'une maintenance
-	 */
-
-	private JLabel labelvalidation;
-
-	/**
-	 * label saisir un operateur
-	 */
-	private JLabel labelsaisirunoperateur;
-
-	/**
-	 * label modifier fiche de maintenance
-	 */
-	private JLabel labelmodifierfiche;
-
-	/**
-	 * label modifier un devis
-	 */
-	private JLabel labelmodifierdevis;
-
-	/**
-	 * label affecter un operateur
-	 */
-	private JLabel labelaffecteroperateur;
 	/**
 	 * bouton de selection
 	 */
@@ -107,62 +75,38 @@ public class Graphique extends JFrame implements ActionListener {
 				boutonmodifierdevis = new JButton("modifierdevis");
 				boutonaffecteroperateur = new JButton("affecteroperateur");
 				boutonmodifierfiche = new JButton("modifierfiche");
-				labelsaisirunclient = new JLabel("saisir :");
-				labelsaisirunemaintenance = new JLabel("nom:");
-				labelvalidation = new JLabel("ville :");
-				labelsaisirunoperateur = new JLabel("adresse :");
-				labelmodifierfiche = new JLabel("date:");
-				labelaffecteroperateur = new JLabel("tstid :");
-				labelmodifierdevis = new Jlabel("modifier devis:");
 
-				zoneTextListStation = new JTextArea(10, 20);
-				zoneDefilement = new JScrollPane(zoneTextListStation);
-				zoneTextListStation.setEditable(false);
+				
 
 				// ajout des composants sur le container
-				containerPanel.add(labelid);
-
 				// introduire une espace constant entre le champ texte et le composant
 				// suivant
+				containerPanel.add(boutonvalidation);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-				containerPanel.add(labelnom);
-
-
+				
+				containerPanel.add(boutonsaisirclient);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-				containerPanel.add(labelville);
-
-
+				
+				containerPanel.add(boutonsaisirmaintenance);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-				containerPanel.add(labeladresse);
-
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-				containerPanel.add(labeldate);
-
+				
+				containerPanel.add(boutonsaisiroperateur);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-				containerPanel.add(labeltstid);
-
+				containerPanel.add(boutonmodifierdevis);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-				containerPanel.add(boutonAjouter);
+				containerPanel.add(boutonaffecteroperateur);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-				containerPanel.add(boutonsuppr);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-				containerPanel.add(boutonAffichageTousLesStations);
+				containerPanel.add(boutonmodifierfiche);
 				containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
-				containerPanel.add(zoneDefilement);
 
 				// ajouter une bordure vide de taille constante autour de l'ensemble des
 				// composants
 				containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-				// ajout des écouteurs sur les boutons pour gérer les évènements
-				boutonAjouter.addActionListener(this);
-				boutonAffichageTousLesStations.addActionListener(this);
 
 				// permet de quitter l'application si on ferme la fenêtre
 				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
