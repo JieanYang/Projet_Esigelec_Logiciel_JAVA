@@ -10,6 +10,7 @@ public class Operateur {
 
 	}
 
+
 	public String getNom() {
 		return nom;
 	}
