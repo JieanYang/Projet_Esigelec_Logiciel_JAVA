@@ -4,7 +4,8 @@ public class Devis {
 	private String nomdevis;
 	private Client client;
 	private String categorie;
-	private String nom;
+	private String nomclient;
+	private String date;
 
 	public Devis() {
 		id = 0;
@@ -21,9 +22,17 @@ public class Devis {
 	}
 
 	public Devis(String text, String text2, String text3) {
-		this.nomdevis = text;
-		this.nom = text2;
+		this.nomclient = text;
+		this.date = text2;
 		this.categorie = text3;
+	}
+
+	public String getNom() {
+		return nomclient;
+	}
+
+	public void setNom(String nom) {
+		this.nomclient = nom;
 	}
 
 	public int getId() {

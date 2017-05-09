@@ -110,6 +110,7 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == creerdemande) {
 			Devis ap = new Devis(this.textFieldnom.getText(),this.textFielddate.getText(),this.textFieldcategorie.getText());
+			System.out.print(ap.getNom());
 			this.dispose();
 			
 		}
