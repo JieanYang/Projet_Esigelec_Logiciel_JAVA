@@ -33,6 +33,10 @@ public class Graphique extends JFrame implements ActionListener {
 	private JButton boutonmodifierdevis;
 	private JButton boutonaffecteroperateur;
 	private JButton boutonmodifierfiche;
+	private JButton boutonfacturation;
+	private JButton boutonsuivireglement;
+	private JButton boutoncloturedossier;
+	private JButton boutoneditionrapport;
 
 	/**
 	 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
@@ -75,6 +79,15 @@ public class Graphique extends JFrame implements ActionListener {
 		boutonaffecteroperateur = new JButton("affecteroperateur");
 
 		boutonmodifierfiche = new JButton("modifierfiche");
+		
+		boutonfacturation = new JButton("facturation de prestation");
+
+		boutonsuivireglement = new JButton("suivi du reglement");
+		boutonsuivireglement.addActionListener(this);
+
+		boutoncloturedossier = new JButton("cloture du dossier");
+
+		boutoneditionrapport = new JButton("edition du rapport d'activite au client");
 
 		// ajout des composants sur le container
 		// introduire une espace constant entre le champ texte et le composant
@@ -100,9 +113,21 @@ public class Graphique extends JFrame implements ActionListener {
 		containerPanel.add(boutonmodifierfiche);
 		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
+		containerPanel.add(boutonfacturation);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		containerPanel.add(boutonsuivireglement);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		containerPanel.add(boutoncloturedossier);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		containerPanel.add(boutoneditionrapport);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
 		// composants
-		containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
 		// permet de quitter l'application si on ferme la fenêtre
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,8 +142,11 @@ public class Graphique extends JFrame implements ActionListener {
 		if (ae.getSource() == boutonsaisirmaintenance) {
 			//this.dispose();
 			Graphiquemaintenance ap = new Graphiquemaintenance();
+			if (ae.getSource() == boutonsuivireglement) {
+			}
+			}
 		}
 
 	}
 
-}
+
