@@ -79,7 +79,7 @@ public class Graphique extends JFrame implements ActionListener {
 		boutonaffecteroperateur = new JButton("affecteroperateur");
 
 		boutonmodifierfiche = new JButton("modifierfiche");
-		
+
 		boutonfacturation = new JButton("facturation de prestation");
 
 		boutonsuivireglement = new JButton("suivi du reglement");
@@ -140,13 +140,11 @@ public class Graphique extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == boutonsaisirmaintenance) {
-			//this.dispose();
+			// this.dispose();
 			Graphiquemaintenance ap = new Graphiquemaintenance();
-			if (ae.getSource() == boutonsuivireglement) {
-			}
-			}
 		}
-
+		if (ae.getSource() == boutonsuivireglement) {
+			Graphique_Yang apa = new Graphique_Yang();
+		}
 	}
-
-
+}
