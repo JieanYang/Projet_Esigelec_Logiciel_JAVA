@@ -115,7 +115,7 @@ public class Graphique extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == boutonsaisirmaintenance) {
-			this.dispose();
+			//this.dispose();
 			Graphiquemaintenance ap = new Graphiquemaintenance();
 		}
 

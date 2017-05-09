@@ -66,11 +66,12 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		// instantiation des composants graphiques
 
 		creerdemande = new JButton("creer une demande");
-		
+		creerdemande.addActionListener(this);
+
 		textFielddate = new JTextField();
 		textFieldnom = new JTextField();
 		textFieldcategorie = new JTextField();
-		
+
 		labeldate = new JLabel("date :");
 		labelnom = new JLabel("nom:");
 		labelcategorie = new JLabel("categorie :");
@@ -90,7 +91,7 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		containerPanel.add(labelcategorie);
 		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		containerPanel.add(textFieldcategorie);
-		
+
 		containerPanel.add(creerdemande);
 		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
@@ -106,10 +107,12 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == creerdemande) {
+			Devis ap = new Devis(this.textFieldnom.getText(),this.textFielddate.getText(),this.textFieldcategorie.getText());
+			this.dispose();
+			
+		}
 
 	}
-
 }

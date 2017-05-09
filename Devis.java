@@ -4,12 +4,26 @@ public class Devis {
 	private String nomdevis;
 	private Client client;
 	private String categorie;
-	
-	public Devis(int id,String nomdevis,Client client, String categorie){
+	private String nom;
+
+	public Devis() {
+		id = 0;
+		nomdevis = null;
+		client = null;
+		categorie = null;
+	}
+
+	public Devis(int id, String nomdevis, Client client, String categorie) {
 		this.id = id;
 		this.nomdevis = nomdevis;
 		this.client = client;
 		this.categorie = categorie;
+	}
+
+	public Devis(String text, String text2, String text3) {
+		this.nomdevis = text;
+		this.nom = text2;
+		this.categorie = text3;
 	}
 
 	public int getId() {
