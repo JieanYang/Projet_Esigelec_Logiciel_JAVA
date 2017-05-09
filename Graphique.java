@@ -1,23 +1,16 @@
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-import javax.swing.Box;
-
-import java.util.List;
 
 /**
  * Classe graphique
@@ -27,7 +20,7 @@ import java.util.List;
  */
 
 public class Graphique extends JFrame implements ActionListener {
-	
+
 	private JPanel containerPanel;
 
 	/**
@@ -46,7 +39,7 @@ public class Graphique extends JFrame implements ActionListener {
 	 */
 	public Graphique() {
 		// on instancie la classe Station DAO
-		this.DAO = new DAO();
+		// this.DAO = new DAO();
 
 		// on fixe le titre de la fenêtre
 		this.setTitle("Menu");
@@ -67,53 +60,65 @@ public class Graphique extends JFrame implements ActionListener {
 		// choix de la couleur pour le conteneur
 		containerPanel.setBackground(Color.lightGray);
 		// instantiation des composants graphiques
-		
-				boutonvalidation = new JButton("validation");
-				boutonsaisirclient = new JButton("saisirclient");
-				boutonsaisirmaintenance = new JButton("saisirmaintenance");
-				boutonsaisiroperateur = new JButton("saisiroperateur");
-				boutonmodifierdevis = new JButton("modifierdevis");
-				boutonaffecteroperateur = new JButton("affecteroperateur");
-				boutonmodifierfiche = new JButton("modifierfiche");
 
-				
+		boutonvalidation = new JButton("validation");
 
-				// ajout des composants sur le container
-				// introduire une espace constant entre le champ texte et le composant
-				// suivant
-				containerPanel.add(boutonvalidation);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-				
-				containerPanel.add(boutonsaisirclient);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-				
-				containerPanel.add(boutonsaisirmaintenance);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-				
-				containerPanel.add(boutonsaisiroperateur);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		boutonsaisirclient = new JButton("saisirclient");
 
-				containerPanel.add(boutonmodifierdevis);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		boutonsaisirmaintenance = new JButton("saisirmaintenance");
+		boutonsaisirmaintenance.addActionListener(this);
 
-				containerPanel.add(boutonaffecteroperateur);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		boutonsaisiroperateur = new JButton("saisiroperateur");
 
-				containerPanel.add(boutonmodifierfiche);
-				containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		boutonmodifierdevis = new JButton("modifierdevis");
 
+		boutonaffecteroperateur = new JButton("affecteroperateur");
 
-				// ajouter une bordure vide de taille constante autour de l'ensemble des
-				// composants
-				containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		boutonmodifierfiche = new JButton("modifierfiche");
 
+		// ajout des composants sur le container
+		// introduire une espace constant entre le champ texte et le composant
+		// suivant
+		containerPanel.add(boutonvalidation);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-				// permet de quitter l'application si on ferme la fenêtre
-				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		containerPanel.add(boutonsaisirclient);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-				this.setContentPane(containerPanel);
+		containerPanel.add(boutonsaisirmaintenance);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-				// affichage de la fenêtre
-				this.setVisible(true);
+		containerPanel.add(boutonsaisiroperateur);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		containerPanel.add(boutonmodifierdevis);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		containerPanel.add(boutonaffecteroperateur);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+		containerPanel.add(boutonmodifierfiche);
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+
+		// ajouter une bordure vide de taille constante autour de l'ensemble des
+		// composants
+		containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		// permet de quitter l'application si on ferme la fenêtre
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		this.setContentPane(containerPanel);
+
+		// affichage de la fenêtre
+		this.setVisible(true);
 	}
+
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == boutonsaisirmaintenance) {
+			this.dispose();
+			Graphiquemaintenance ap = new Graphiquemaintenance();
+		}
+
+	}
+
 }
