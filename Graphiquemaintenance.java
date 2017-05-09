@@ -18,6 +18,8 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 	 * bouton de selection
 	 */
 	private JButton creerdemande;
+
+	private JButton retour;
 	/**
 	 * zone de texte pour le champ nom du client
 	 */
@@ -68,6 +70,9 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		creerdemande = new JButton("creer une demande");
 		creerdemande.addActionListener(this);
 
+		retour = new JButton("retour");
+		retour.addActionListener(this);
+
 		textFielddate = new JTextField();
 		textFieldnom = new JTextField();
 		textFieldcategorie = new JTextField();
@@ -93,7 +98,8 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		containerPanel.add(textFieldcategorie);
 
 		containerPanel.add(creerdemande);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		containerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+		containerPanel.add(retour);
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
 		// composants
 		containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -109,11 +115,16 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == creerdemande) {
-			Devis ap = new Devis(this.textFieldnom.getText(),this.textFielddate.getText(),this.textFieldcategorie.getText());
+			Devis ap = new Devis(this.textFieldnom.getText(), this.textFielddate.getText(),
+					this.textFieldcategorie.getText());
 			System.out.print(ap.getNom());
 			this.dispose();
-			
+		}
+		if (ae.getSource() == retour) {
+			this.dispose();
+
 		}
 
 	}
+
 }
