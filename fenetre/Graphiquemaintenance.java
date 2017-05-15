@@ -1,3 +1,4 @@
+package fenetre;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import models.Devis;
 
 public class Graphiquemaintenance extends JFrame implements ActionListener {
 	private JPanel containerPanel;
@@ -50,8 +53,8 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		// on fixe le titre de la fenêtre
 		this.setTitle("saisir une maintenance");
 		// initialisation de la taille de la fenêtre
-		this.setSize(400, 600);
-
+		this.setSize(500, 630);
+		this.setLocationRelativeTo(null);
 		// création du conteneur
 		containerPanel = new JPanel();
 
@@ -61,7 +64,7 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		// présentation
 		// BoxLayout permet par exemple de positionner les élements sur une
 		// colonne ( PAGE_AXIS )
-		containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.PAGE_AXIS));
+		containerPanel.setLayout(null);
 
 		// choix de la couleur pour le conteneur
 		containerPanel.setBackground(Color.lightGray);
@@ -83,22 +86,23 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		// ajout des composants sur le container
 		// introduire une espace constant entre le champ texte et le composant
 		// suivant
+		labelnom.setBounds(20, 10, 150, 30);
+		textFieldnom.setBounds(20, 50, 460, 50);
+		labeldate.setBounds(20, 110, 150, 30);
+		textFielddate.setBounds(20, 150, 460, 50);
+		labelcategorie.setBounds(20, 210, 150, 30);
+		textFieldcategorie.setBounds(20, 250, 460, 50);
+		creerdemande.setBounds(20, 330, 150, 30);
+		retour.setBounds(180, 330, 150, 30);
+		
+		
 		containerPanel.add(labelnom);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		containerPanel.add(textFieldnom);
-
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		containerPanel.add(labeldate);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		containerPanel.add(textFielddate);
-
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		containerPanel.add(labelcategorie);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		containerPanel.add(textFieldcategorie);
-
 		containerPanel.add(creerdemande);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 		containerPanel.add(retour);
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
 		// composants
@@ -121,6 +125,7 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 			this.dispose();
 		}
 		if (ae.getSource() == retour) {
+			Graphique ap = new Graphique();
 			this.dispose();
 
 		}

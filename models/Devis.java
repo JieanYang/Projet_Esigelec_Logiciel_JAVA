@@ -1,3 +1,4 @@
+package models;
 
 public class Devis {
 	private int id;

@@ -1,5 +1,7 @@
+package fenetre;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,8 +50,8 @@ public class Graphique extends JFrame implements ActionListener {
 		// on fixe le titre de la fenêtre
 		this.setTitle("Menu");
 		// initialisation de la taille de la fenêtre
-		this.setSize(400, 600);
-
+		this.setSize(500, 630);
+		this.setLocationRelativeTo(null);
 		// création du conteneur
 		containerPanel = new JPanel();
 
@@ -59,7 +61,7 @@ public class Graphique extends JFrame implements ActionListener {
 		// présentation
 		// BoxLayout permet par exemple de positionner les élements sur une
 		// colonne ( PAGE_AXIS )
-		containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.PAGE_AXIS));
+		containerPanel.setLayout(null);
 
 		// choix de la couleur pour le conteneur
 		containerPanel.setBackground(Color.lightGray);
@@ -92,38 +94,31 @@ public class Graphique extends JFrame implements ActionListener {
 		// ajout des composants sur le container
 		// introduire une espace constant entre le champ texte et le composant
 		// suivant
+		boutonvalidation.setBounds(175, 22, 150, 30);
+		boutonsaisirclient.setBounds(175, 74, 150, 30);
+		boutonsaisirmaintenance.setBounds(175, 126, 150, 30);
+		boutonsaisiroperateur.setBounds(175, 178, 150, 30);
+		boutonmodifierdevis.setBounds(175, 230, 150, 30);
+		boutonaffecteroperateur.setBounds(175, 282, 150, 30);
+		boutonmodifierfiche.setBounds(175, 334, 150, 30);
+		boutonfacturation.setBounds(150, 386, 200, 30);
+		boutonsuivireglement.setBounds(175, 438, 150, 30);
+		boutoncloturedossier.setBounds(175, 490, 150, 30);
+		boutoneditionrapport.setBounds(125, 542, 250, 30);
+		
+		
 		containerPanel.add(boutonvalidation);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutonsaisirclient);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutonsaisirmaintenance);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutonsaisiroperateur);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-		containerPanel.add(boutonmodifierdevis);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
+		containerPanel.add(boutonmodifierdevis);	
 		containerPanel.add(boutonaffecteroperateur);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutonmodifierfiche);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-
 		containerPanel.add(boutonfacturation);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutonsuivireglement);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutoncloturedossier);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
 		containerPanel.add(boutoneditionrapport);
-		containerPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+
 
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
 		// composants
@@ -140,10 +135,11 @@ public class Graphique extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == boutonsaisirmaintenance) {
-			// this.dispose();
+			this.dispose();
 			Graphiquemaintenance ap = new Graphiquemaintenance();
 		}
 		if (ae.getSource() == boutonsuivireglement) {
+			this.dispose();
 			Graphique_Yang apa = new Graphique_Yang();
 		}
 	}
