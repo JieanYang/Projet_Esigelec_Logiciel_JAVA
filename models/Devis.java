@@ -22,11 +22,6 @@ public class Devis {
 		this.categorie = categorie;
 	}
 
-	public Devis(String text, String text2, String text3) {
-		this.nomclient = text;
-		this.date = text2;
-		this.categorie = text3;
-	}
 
 	public String getNom() {
 		return nomclient;
@@ -66,6 +61,14 @@ public class Devis {
 
 	public void setCategorie(String categorie) {
 		this.categorie = categorie;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 }

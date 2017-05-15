@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DAO.ClientDAO;
 import models.Devis;
 
 public class Graphiquemaintenance extends JFrame implements ActionListener {
@@ -119,9 +120,6 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == creerdemande) {
-			Devis ap = new Devis(this.textFieldnom.getText(), this.textFielddate.getText(),
-					this.textFieldcategorie.getText());
-			System.out.print(ap.getNom());
 			this.dispose();
 		}
 		if (ae.getSource() == retour) {

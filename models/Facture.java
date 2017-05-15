@@ -19,9 +19,6 @@ public class Facture extends Devis{
 		super(devis.getId(), devis.getNomdevis(), devis.getClient(),devis.getCategorie() );
 	}
 	
-	public Facture(String text, String text2, String text3){
-		super(text, text2, text3);
-	}
 //get
 	public int getId_Facture(){
 		return id_facture;

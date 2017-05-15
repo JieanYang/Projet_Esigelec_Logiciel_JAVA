@@ -44,7 +44,7 @@ public class Graphique extends JFrame implements ActionListener {
 	 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
 	 */
 	public Graphique() {
-		// on instancie la classe Station DAO
+		// on instancie la classe Comptable DAO
 		// this.DAO = new DAO();
 
 		// on fixe le titre de la fenêtre
@@ -82,7 +82,7 @@ public class Graphique extends JFrame implements ActionListener {
 
 		boutonmodifierfiche = new JButton("modifierfiche");
 
-		boutonfacturation = new JButton("facturation de prestation");
+		boutonfacturation = new JButton("facturation de preComptable");
 
 		boutonsuivireglement = new JButton("suivi du reglement");
 		boutonsuivireglement.addActionListener(this);

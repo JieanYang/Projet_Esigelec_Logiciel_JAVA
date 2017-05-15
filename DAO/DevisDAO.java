@@ -5,8 +5,11 @@ package DAO;
 	import java.util.ArrayList;
 	import java.util.List;
 
+import models.Client;
+import models.Devis;
+
 	/**
-	 * Classe d'accès aux données contenues dans la table Station
+	 * Classe d'accès aux données contenues dans la table Devis
 	 * 
 	 * @author diesnis
 	 * @version 1
@@ -24,7 +27,7 @@ public class DevisDAO {
 		 * Constructeur de la classe
 		 * 
 		 */
-		public StationDAO() {
+		public DevisDAO() {
 			// chargement du pilote de bases de données
 			try {
 				Class.forName("oracle.jdbc.OracleDriver");
@@ -36,14 +39,14 @@ public class DevisDAO {
 		}
 
 		/**
-		 * Permet d'ajouter un Station dans la table Station Le mode est auto-commit
+		 * Permet d'ajouter un Devis dans la table Devis Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Station
-		 *            l'Station à ajouter
+		 * @param Devis
+		 *            l'Devis à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Station Station) {
+		public int ajouter(Devis devis) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -58,13 +61,13 @@ public class DevisDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO STATION_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Station.getid());
-				ps.setString(2, Station.getnom());
-				ps.setString(3, Station.getville());
-				ps.setString(4, Station.getadresse());
-				ps.setString(5, Station.getdate());
-				ps.setInt(6, 5);
+						"INSERT INTO DEVIS_DVI (DVI_ID,DVI_NOM,DVI_CLIENT,DVI_CATEGORIE,DVI_DATE) VALUES (?, ?, ?, ?, ?)");
+				ps.setInt(1, devis.getId());
+				ps.setString(2, devis.getNom());
+				ps.setInt(3, devis.getClient().getId());
+				ps.setString(4, devis.getCategorie());
+				ps.setString(5, devis.getDate());
+			
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -88,14 +91,14 @@ public class DevisDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Station dans la table Station Le mode est auto-commit
+		 * Permet d'ajouter un Devis dans la table Devis Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Station
-		 *            l'Station à ajouter
+		 * @param Devis
+		 *            l'Devis à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int suppr(Station Station) {
+		public int suppr(Devis devis) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -110,8 +113,8 @@ public class DevisDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM STATION_STT WHERE(STT_ID)");
-				ps.setInt(1, Station.getid());
+						"DELETE FROM DEVIS_DVI WHERE(DVI_ID)");
+				ps.setInt(1, devis.getId());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -137,25 +140,25 @@ public class DevisDAO {
 
 
 		/**
-		 * Permet de récupérer un Station à partir de sa référence
+		 * Permet de récupérer un Devis à partir de sa référence
 		 * 
 		 * @param id
-		 *            la référence de l'Station à récupérer
-		 * @return l'Station trouvé; null si aucun Station ne correspond à cette
+		 *            la référence de l'Devis à récupérer
+		 * @return l'Devis trouvé; null si aucun Devis ne correspond à cette
 		 *         référence
 		 */
-		public Station getStation(int id) {
+		public Devis getDevis(int id) {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			Station retour = null;
+			Devis retour = null;
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM STATION_STT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM DEVIS_DVI WHERE DVI_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
@@ -163,10 +166,12 @@ public class DevisDAO {
 				// retournée
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
-				if (rs.next())
-					retour = new Station(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
-
+				if (rs.next()) {
+					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT"));
+				
+					retour = new Devis(rs.getInt("DVI_ID"), rs.getString("DVI_NOM"),client ,
+							rs.getString("DVI_CATEGORIE"));
+				}
 			} catch (Exception ee) {
 				ee.printStackTrace();
 			} finally {
@@ -192,31 +197,35 @@ public class DevisDAO {
 		}
 
 		/**
-		 * Permet de récupérer tous les Stations stockés dans la table Station
+		 * Permet de récupérer tous les Deviss stockés dans la table Devis
 		 * 
-		 * @return une ArrayList d'Stations
+		 * @return une ArrayList d'Deviss
 		 */
-		public List<Station> getListeStations() {
+		public List<Devis> getListeDeviss() {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			List<Station> retour = new ArrayList<Station>();
+			List<Devis> retour = new ArrayList<Devis>();
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM STATION_STT");
+				ps = con.prepareStatement("SELECT * FROM DEVIS_DVI");
 
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
-				while (rs.next())
-					retour.add(new Station(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
+				while (rs.next()){
+					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT"));
+				
+					Devis toto = new Devis(rs.getInt("DVI_ID"), rs.getString("DVI_NOM"), client ,
+							rs.getString("DVI_CATEGORIE"));
+				
+					retour.add(toto);
 
-			} catch (Exception ee) {
+				}} catch (Exception ee) {
 				ee.printStackTrace();
 			} finally {
 				// fermeture du rs, du preparedStatement et de la connexion
@@ -242,4 +251,4 @@ public class DevisDAO {
 	}
 
 
-}
+

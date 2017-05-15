@@ -112,6 +112,11 @@ public class Graphique_Yang extends JFrame implements ActionListener {
 			Yang_GraphiqueCreateFacture a = new Yang_GraphiqueCreateFacture();
 			this.dispose();
 		}
+		
+		if (ae.getSource() == AffichageFacture) {
+			Yang_GraphiqueAfficherFacture a = new Yang_GraphiqueAfficherFacture();
+			this.dispose();
+		}
 
 	}
 

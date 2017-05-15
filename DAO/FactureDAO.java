@@ -6,7 +6,7 @@ package DAO;
 	import java.util.List;
 
 	/**
-	 * Classe d'accès aux données contenues dans la table Station
+	 * Classe d'accès aux données contenues dans la table Facture
 	 * 
 	 * @author diesnis
 	 * @version 1
@@ -24,7 +24,7 @@ public class FactureDAO {
 		 * Constructeur de la classe
 		 * 
 		 */
-		public StationDAO() {
+		public FactureDAO() {
 			// chargement du pilote de bases de données
 			try {
 				Class.forName("oracle.jdbc.OracleDriver");
@@ -36,14 +36,14 @@ public class FactureDAO {
 		}
 
 		/**
-		 * Permet d'ajouter un Station dans la table Station Le mode est auto-commit
+		 * Permet d'ajouter un Facture dans la table Facture Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Station
-		 *            l'Station à ajouter
+		 * @param Facture
+		 *            l'Facture à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Station Station) {
+		public int ajouter(Facture Facture) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -58,12 +58,12 @@ public class FactureDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO STATION_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Station.getid());
-				ps.setString(2, Station.getnom());
-				ps.setString(3, Station.getville());
-				ps.setString(4, Station.getadresse());
-				ps.setString(5, Station.getdate());
+						"INSERT INTO Facture_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
+				ps.setInt(1, Facture.getid());
+				ps.setString(2, Facture.getnom());
+				ps.setString(3, Facture.getville());
+				ps.setString(4, Facture.getadresse());
+				ps.setString(5, Facture.getdate());
 				ps.setInt(6, 5);
 
 				// Exécution de la requête
@@ -88,14 +88,14 @@ public class FactureDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Station dans la table Station Le mode est auto-commit
+		 * Permet d'ajouter un Facture dans la table Facture Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Station
-		 *            l'Station à ajouter
+		 * @param Facture
+		 *            l'Facture à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int suppr(Station Station) {
+		public int suppr(Facture Facture) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -110,8 +110,8 @@ public class FactureDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM STATION_STT WHERE(STT_ID)");
-				ps.setInt(1, Station.getid());
+						"DELETE FROM Facture_STT WHERE(STT_ID)");
+				ps.setInt(1, Facture.getid());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -137,25 +137,25 @@ public class FactureDAO {
 
 
 		/**
-		 * Permet de récupérer un Station à partir de sa référence
+		 * Permet de récupérer un Facture à partir de sa référence
 		 * 
 		 * @param id
-		 *            la référence de l'Station à récupérer
-		 * @return l'Station trouvé; null si aucun Station ne correspond à cette
+		 *            la référence de l'Facture à récupérer
+		 * @return l'Facture trouvé; null si aucun Facture ne correspond à cette
 		 *         référence
 		 */
-		public Station getStation(int id) {
+		public Facture getFacture(int id) {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			Station retour = null;
+			Facture retour = null;
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM STATION_STT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM Facture_STT WHERE STT_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
@@ -164,7 +164,7 @@ public class FactureDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Station(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour = new Facture(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
 
 			} catch (Exception ee) {
@@ -192,28 +192,28 @@ public class FactureDAO {
 		}
 
 		/**
-		 * Permet de récupérer tous les Stations stockés dans la table Station
+		 * Permet de récupérer tous les Factures stockés dans la table Facture
 		 * 
-		 * @return une ArrayList d'Stations
+		 * @return une ArrayList d'Factures
 		 */
-		public List<Station> getListeStations() {
+		public List<Facture> getListeFactures() {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			List<Station> retour = new ArrayList<Station>();
+			List<Facture> retour = new ArrayList<Facture>();
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM STATION_STT");
+				ps = con.prepareStatement("SELECT * FROM Facture_STT");
 
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Station(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour.add(new Facture(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
 
 			} catch (Exception ee) {
