@@ -110,7 +110,7 @@ package DAO;
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Comptable_STT WHERE(STT_ID)");
+						"DELETE FROM Comptable_STT WHERE STT_ID = ?");
 				ps.setInt(1, Comptable.getid());
 
 				// Exécution de la requête

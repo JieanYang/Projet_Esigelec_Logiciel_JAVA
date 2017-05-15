@@ -5,8 +5,10 @@ package DAO;
 	import java.util.ArrayList;
 	import java.util.List;
 
+import models.Rapportactivite;
+
 	/**
-	 * Classe d'accès aux données contenues dans la table Comptable
+	 * Classe d'accès aux données contenues dans la table Rapportactivite
 	 * 
 	 * @author diesnis
 	 * @version 1
@@ -25,7 +27,7 @@ public class RapportactiviteDAO {
 		 * Constructeur de la classe
 		 * 
 		 */
-		public ComptableDAO() {
+		public RapportactiviteDAO() {
 			// chargement du pilote de bases de données
 			try {
 				Class.forName("oracle.jdbc.OracleDriver");
@@ -37,14 +39,14 @@ public class RapportactiviteDAO {
 		}
 
 		/**
-		 * Permet d'ajouter un Comptable dans la table Comptable Le mode est auto-commit
+		 * Permet d'ajouter un Rapportactivite dans la table Rapportactivite Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Comptable
-		 *            l'Comptable à ajouter
+		 * @param Rapportactivite
+		 *            l'Rapportactivite à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Comptable Comptable) {
+		public int ajouter(Rapportactivite Rapportactivite) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -59,12 +61,12 @@ public class RapportactiviteDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO Comptable_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Comptable.getid());
-				ps.setString(2, Comptable.getnom());
-				ps.setString(3, Comptable.getville());
-				ps.setString(4, Comptable.getadresse());
-				ps.setString(5, Comptable.getdate());
+						"INSERT INTO Rapportactivite_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
+				ps.setInt(1, Rapportactivite.getid());
+				ps.setString(2, Rapportactivite.getnom());
+				ps.setString(3, Rapportactivite.getville());
+				ps.setString(4, Rapportactivite.getadresse());
+				ps.setString(5, Rapportactivite.getdate());
 				ps.setInt(6, 5);
 
 				// Exécution de la requête
@@ -89,14 +91,14 @@ public class RapportactiviteDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Comptable dans la table Comptable Le mode est auto-commit
+		 * Permet d'ajouter un Rapportactivite dans la table Rapportactivite Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Comptable
-		 *            l'Comptable à ajouter
+		 * @param Rapportactivite
+		 *            l'Rapportactivite à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int suppr(Comptable Comptable) {
+		public int suppr(Rapportactivite Rapportactivite) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -111,8 +113,8 @@ public class RapportactiviteDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Comptable_STT WHERE(STT_ID)");
-				ps.setInt(1, Comptable.getid());
+						"DELETE FROM Rapportactivite_STT WHERE(STT_ID)");
+				ps.setInt(1, Rapportactivite.getid());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -138,25 +140,25 @@ public class RapportactiviteDAO {
 
 
 		/**
-		 * Permet de récupérer un Comptable à partir de sa référence
+		 * Permet de récupérer un Rapportactivite à partir de sa référence
 		 * 
 		 * @param id
-		 *            la référence de l'Comptable à récupérer
-		 * @return l'Comptable trouvé; null si aucun Comptable ne correspond à cette
+		 *            la référence de l'Rapportactivite à récupérer
+		 * @return l'Rapportactivite trouvé; null si aucun Rapportactivite ne correspond à cette
 		 *         référence
 		 */
-		public Comptable getComptable(int id) {
+		public Rapportactivite getRapportactivite(int id) {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			Comptable retour = null;
+			Rapportactivite retour = null;
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Comptable_STT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM Rapportactivite_STT WHERE STT_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
@@ -165,7 +167,7 @@ public class RapportactiviteDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Comptable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour = new Rapportactivite(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
 
 			} catch (Exception ee) {
@@ -193,28 +195,28 @@ public class RapportactiviteDAO {
 		}
 
 		/**
-		 * Permet de récupérer tous les Comptables stockés dans la table Comptable
+		 * Permet de récupérer tous les Rapportactivites stockés dans la table Rapportactivite
 		 * 
-		 * @return une ArrayList d'Comptables
+		 * @return une ArrayList d'Rapportactivites
 		 */
-		public List<Comptable> getListeComptables() {
+		public List<Rapportactivite> getListeRapportactivites() {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			List<Comptable> retour = new ArrayList<Comptable>();
+			List<Rapportactivite> retour = new ArrayList<Rapportactivite>();
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Comptable_STT");
+				ps = con.prepareStatement("SELECT * FROM Rapportactivite_STT");
 
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Comptable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour.add(new Rapportactivite(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
 
 			} catch (Exception ee) {

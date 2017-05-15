@@ -6,7 +6,7 @@ package DAO;
 	import java.util.List;
 
 	/**
-	 * Classe d'accès aux données contenues dans la table Comptable
+	 * Classe d'accès aux données contenues dans la table Fichemaintenance
 	 * 
 	 * @author diesnis
 	 * @version 1
@@ -25,7 +25,7 @@ public class FichemaintenanceDAO {
 		 * Constructeur de la classe
 		 * 
 		 */
-		public ComptableDAO() {
+		public FichemaintenanceDAO() {
 			// chargement du pilote de bases de données
 			try {
 				Class.forName("oracle.jdbc.OracleDriver");
@@ -37,14 +37,14 @@ public class FichemaintenanceDAO {
 		}
 
 		/**
-		 * Permet d'ajouter un Comptable dans la table Comptable Le mode est auto-commit
+		 * Permet d'ajouter un Fichemaintenance dans la table Fichemaintenance Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Comptable
-		 *            l'Comptable à ajouter
+		 * @param Fichemaintenance
+		 *            l'Fichemaintenance à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Comptable Comptable) {
+		public int ajouter(Fichemaintenance Fichemaintenance) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -59,12 +59,12 @@ public class FichemaintenanceDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO Comptable_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Comptable.getid());
-				ps.setString(2, Comptable.getnom());
-				ps.setString(3, Comptable.getville());
-				ps.setString(4, Comptable.getadresse());
-				ps.setString(5, Comptable.getdate());
+						"INSERT INTO Fichemaintenance_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
+				ps.setInt(1, Fichemaintenance.getid());
+				ps.setString(2, Fichemaintenance.getnom());
+				ps.setString(3, Fichemaintenance.getville());
+				ps.setString(4, Fichemaintenance.getadresse());
+				ps.setString(5, Fichemaintenance.getdate());
 				ps.setInt(6, 5);
 
 				// Exécution de la requête
@@ -89,14 +89,14 @@ public class FichemaintenanceDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Comptable dans la table Comptable Le mode est auto-commit
+		 * Permet d'ajouter un Fichemaintenance dans la table Fichemaintenance Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Comptable
-		 *            l'Comptable à ajouter
+		 * @param Fichemaintenance
+		 *            l'Fichemaintenance à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int suppr(Comptable Comptable) {
+		public int suppr(Fichemaintenance Fichemaintenance) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -111,8 +111,8 @@ public class FichemaintenanceDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Comptable_STT WHERE(STT_ID)");
-				ps.setInt(1, Comptable.getid());
+						"DELETE FROM Fichemaintenance_STT WHERE(STT_ID)");
+				ps.setInt(1, Fichemaintenance.getid());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -138,25 +138,25 @@ public class FichemaintenanceDAO {
 
 
 		/**
-		 * Permet de récupérer un Comptable à partir de sa référence
+		 * Permet de récupérer un Fichemaintenance à partir de sa référence
 		 * 
 		 * @param id
-		 *            la référence de l'Comptable à récupérer
-		 * @return l'Comptable trouvé; null si aucun Comptable ne correspond à cette
+		 *            la référence de l'Fichemaintenance à récupérer
+		 * @return l'Fichemaintenance trouvé; null si aucun Fichemaintenance ne correspond à cette
 		 *         référence
 		 */
-		public Comptable getComptable(int id) {
+		public Fichemaintenance getFichemaintenance(int id) {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			Comptable retour = null;
+			Fichemaintenance retour = null;
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Comptable_STT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM Fichemaintenance_STT WHERE STT_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
@@ -165,7 +165,7 @@ public class FichemaintenanceDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Comptable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour = new Fichemaintenance(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
 
 			} catch (Exception ee) {
@@ -193,28 +193,28 @@ public class FichemaintenanceDAO {
 		}
 
 		/**
-		 * Permet de récupérer tous les Comptables stockés dans la table Comptable
+		 * Permet de récupérer tous les Fichemaintenances stockés dans la table Fichemaintenance
 		 * 
-		 * @return une ArrayList d'Comptables
+		 * @return une ArrayList d'Fichemaintenances
 		 */
-		public List<Comptable> getListeComptables() {
+		public List<Fichemaintenance> getListeFichemaintenances() {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			List<Comptable> retour = new ArrayList<Comptable>();
+			List<Fichemaintenance> retour = new ArrayList<Fichemaintenance>();
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Comptable_STT");
+				ps = con.prepareStatement("SELECT * FROM Fichemaintenance_STT");
 
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Comptable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour.add(new Fichemaintenance(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
 
 			} catch (Exception ee) {

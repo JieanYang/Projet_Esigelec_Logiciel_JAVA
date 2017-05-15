@@ -197,7 +197,7 @@ public class DevisDAO {
 		}
 
 		/**
-		 * Permet de récupérer tous les Deviss stockés dans la table Devis
+		 * Permet de récupérer tous les Devis stockés dans la table Devis
 		 * 
 		 * @return une ArrayList d'Deviss
 		 */

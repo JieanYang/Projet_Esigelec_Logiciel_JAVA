@@ -6,7 +6,7 @@ package DAO;
 	import java.util.List;
 
 	/**
-	 * Classe d'accès aux données contenues dans la table Comptable
+	 * Classe d'accès aux données contenues dans la table Operateur
 	 * 
 	 * @author diesnis
 	 * @version 1
@@ -24,7 +24,7 @@ public class OperateurDAO {
 		 * Constructeur de la classe
 		 * 
 		 */
-		public ComptableDAO() {
+		public OperateurDAO() {
 			// chargement du pilote de bases de données
 			try {
 				Class.forName("oracle.jdbc.OracleDriver");
@@ -36,14 +36,14 @@ public class OperateurDAO {
 		}
 
 		/**
-		 * Permet d'ajouter un Comptable dans la table Comptable Le mode est auto-commit
+		 * Permet d'ajouter un Operateur dans la table Operateur Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Comptable
-		 *            l'Comptable à ajouter
+		 * @param Operateur
+		 *            l'Operateur à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Comptable Comptable) {
+		public int ajouter(Operateur Operateur) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -58,12 +58,12 @@ public class OperateurDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO Comptable_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Comptable.getid());
-				ps.setString(2, Comptable.getnom());
-				ps.setString(3, Comptable.getville());
-				ps.setString(4, Comptable.getadresse());
-				ps.setString(5, Comptable.getdate());
+						"INSERT INTO Operateur_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
+				ps.setInt(1, Operateur.getid());
+				ps.setString(2, Operateur.getnom());
+				ps.setString(3, Operateur.getville());
+				ps.setString(4, Operateur.getadresse());
+				ps.setString(5, Operateur.getdate());
 				ps.setInt(6, 5);
 
 				// Exécution de la requête
@@ -88,14 +88,14 @@ public class OperateurDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Comptable dans la table Comptable Le mode est auto-commit
+		 * Permet d'ajouter un Operateur dans la table Operateur Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
-		 * @param Comptable
-		 *            l'Comptable à ajouter
+		 * @param Operateur
+		 *            l'Operateur à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int suppr(Comptable Comptable) {
+		public int suppr(Operateur Operateur) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -110,8 +110,8 @@ public class OperateurDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Comptable_STT WHERE(STT_ID)");
-				ps.setInt(1, Comptable.getid());
+						"DELETE FROM Operateur_STT WHERE(STT_ID)");
+				ps.setInt(1, Operateur.getid());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -137,25 +137,25 @@ public class OperateurDAO {
 
 
 		/**
-		 * Permet de récupérer un Comptable à partir de sa référence
+		 * Permet de récupérer un Operateur à partir de sa référence
 		 * 
 		 * @param id
-		 *            la référence de l'Comptable à récupérer
-		 * @return l'Comptable trouvé; null si aucun Comptable ne correspond à cette
+		 *            la référence de l'Operateur à récupérer
+		 * @return l'Operateur trouvé; null si aucun Operateur ne correspond à cette
 		 *         référence
 		 */
-		public Comptable getComptable(int id) {
+		public Operateur getOperateur(int id) {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			Comptable retour = null;
+			Operateur retour = null;
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Comptable_STT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM Operateur_STT WHERE STT_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
@@ -164,7 +164,7 @@ public class OperateurDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Comptable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour = new Operateur(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
 
 			} catch (Exception ee) {
@@ -192,28 +192,28 @@ public class OperateurDAO {
 		}
 
 		/**
-		 * Permet de récupérer tous les Comptables stockés dans la table Comptable
+		 * Permet de récupérer tous les Operateurs stockés dans la table Operateur
 		 * 
-		 * @return une ArrayList d'Comptables
+		 * @return une ArrayList d'Operateurs
 		 */
-		public List<Comptable> getListeComptables() {
+		public List<Operateur> getListeOperateurs() {
 
 			Connection con = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			List<Comptable> retour = new ArrayList<Comptable>();
+			List<Operateur> retour = new ArrayList<Operateur>();
 
 			// connexion à la base de données
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Comptable_STT");
+				ps = con.prepareStatement("SELECT * FROM Operateur_STT");
 
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Comptable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
+					retour.add(new Operateur(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
 							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
 
 			} catch (Exception ee) {
