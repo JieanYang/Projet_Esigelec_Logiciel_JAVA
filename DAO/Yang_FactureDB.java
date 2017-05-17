@@ -4,7 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Client;
 import models.Facture;
+import models.Devis;
 
 
 public class Yang_FactureDB {
@@ -37,14 +39,14 @@ public class Yang_FactureDB {
 			con =DriverManager.getConnection(URL, LOGIN, PASS);
 			
 			ps = con.prepareStatement(//insert contents in oracle
-					"INSERT INTO Yang_Facture (id_D,client_id_D,modepaiement_F,num_F,date_F) VALUES (?, ?, ?, ?,?)");
+					"INSERT INTO Yang_Facture (id_D,client_id_D, modepaiement_F,num_F,date_F,id_F) VALUES (?, ?, ?, ?,?,?)");
 			
 			ps.setInt(1,f.getId());//Id of devis, une public facon dans Devis.java
 			ps.setInt(2,f.getClient().getSiret());//facon dans client.java
 			ps.setString(3, f.getModepaiement_Facture());
 			ps.setInt(4,f.getNum_Facture());
 			ps.setString(5, f.getDate_Facture());
-			
+			ps.setInt(6,f.getId_Facture());
 			
 			//excution de la requete
 			retour = ps.executeUpdate();
@@ -129,10 +131,12 @@ public class Yang_FactureDB {
 			//retournee
 			rs = ps.executeQuery();
 			//passe la premiere ( et unique ) ligne retournee
-			if(rs.next())
-				retour = new Facture(rs.getInt("id_D"), null, null, null, null, null, 
-						rs.getInt("id_F"), rs.getString("modepaiement_F"),rs.getInt("num_F"),
-						rs.getString("date_F"));		
+			if(rs.next()){
+				DevisDAO devisdao = new DevisDAO();
+				Devis devis = devisdao.getDevis(rs.getInt("id_D"));
+				
+				retour = new Facture(devis,rs.getInt("id_F"),rs.getString("modepaiement_F"),rs.getInt("num_F"),rs.getString("date_F"));
+			}
 		}catch(Exception ee){
 			ee.printStackTrace();
 		}finally{
@@ -171,11 +175,11 @@ public class Yang_FactureDB {
 			//execute request
 			rs = ps.executeQuery();
 			//travel the lines of the result
-			while(rs.next())
-				retour.add(new Facture(rs.getInt("id_D"), null, null, null, null, null, 
-						rs.getInt("id_F"), rs.getString("modepaiement_F"),rs.getInt("num_F"),
-						rs.getString("date_F")));
-			
+			while(rs.next()){
+				DevisDAO devisdao = new DevisDAO();
+				Devis devis = devisdao.getDevis(rs.getInt("id_D"));
+				retour.add(new Facture(devis,rs.getInt("id_F"),rs.getString("modepaiement_F"),rs.getInt("num_F"),rs.getString("date_F")));
+			}
 		}catch(Exception ee){
 			ee.printStackTrace();
 		}finally{

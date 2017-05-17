@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 public class Graphique extends JFrame implements ActionListener {
 
 	private JPanel containerPanel;
+	private JPanel operateur;
 
 	/**
 	 * bouton de selection
@@ -54,6 +55,7 @@ public class Graphique extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 		// création du conteneur
 		containerPanel = new JPanel();
+		operateur = new Graphique_saisiroperateur(this);
 
 		// choix du Layout pour ce conteneur
 		// il permet de gérer la position des éléments
@@ -79,6 +81,7 @@ public class Graphique extends JFrame implements ActionListener {
 		boutonmodifierdevis = new JButton("modifierdevis");
 
 		boutonaffecteroperateur = new JButton("affecteroperateur");
+		boutonaffecteroperateur.addActionListener(this);
 
 		boutonmodifierfiche = new JButton("modifierfiche");
 
@@ -133,6 +136,10 @@ public class Graphique extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	public void switchPanel() {
+		this.setContentPane(containerPanel);
+	}
+	
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == boutonsaisirmaintenance) {
 			this.dispose();
@@ -142,5 +149,9 @@ public class Graphique extends JFrame implements ActionListener {
 			this.dispose();
 			Graphique_Yang apa = new Graphique_Yang();
 		}
+		if (ae.getSource() == boutonaffecteroperateur) {
+			this.setContentPane(operateur);
+		}
+		this.revalidate();
 	}
 }
