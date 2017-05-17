@@ -163,7 +163,7 @@ import models.Comptable;
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Comptable(rs.getString("CPT_NOM"), rs.getInt("CPT_ID"));
+					retour = new Comptable(rs.getString("CPT_NOM"), rs.getInt("CPT_ID"),rs.getString("CPT_MDP"));
 
 			} catch (Exception ee) {
 				ee.printStackTrace();
@@ -211,7 +211,7 @@ import models.Comptable;
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Comptable(rs.getString("CPT_NOM"), rs.getInt("CPT_ID")));
+					retour.add(new Comptable(rs.getString("CPT_NOM"), rs.getInt("CPT_ID"),rs.getString("CPT_MDP")));
 
 			} catch (Exception ee) {
 				ee.printStackTrace();

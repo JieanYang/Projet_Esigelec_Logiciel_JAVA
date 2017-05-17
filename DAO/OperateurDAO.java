@@ -5,6 +5,8 @@ package DAO;
 	import java.util.ArrayList;
 	import java.util.List;
 
+import models.Operateur;
+
 	/**
 	 * Classe d'accès aux données contenues dans la table Operateur
 	 * 
@@ -43,7 +45,7 @@ public class OperateurDAO {
 		 *            l'Operateur à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Operateur Operateur) {
+		public int ajouter(Operateur operateur) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -58,13 +60,11 @@ public class OperateurDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO Operateur_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Operateur.getid());
-				ps.setString(2, Operateur.getnom());
-				ps.setString(3, Operateur.getville());
-				ps.setString(4, Operateur.getadresse());
-				ps.setString(5, Operateur.getdate());
-				ps.setInt(6, 5);
+						"INSERT INTO Operateur_OPT (OPT_ID,OPT_NOM,OPT_MDP) VALUES (?, ?, ?)");
+				ps.setInt(1, operateur.getIdentifiant());
+				ps.setString(2, operateur.getNom());
+				ps.setString(3, operateur.getMdp());
+				
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -110,8 +110,8 @@ public class OperateurDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Operateur_STT WHERE(STT_ID)");
-				ps.setInt(1, Operateur.getid());
+						"DELETE FROM Operateur_OPT WHERE(OPT_ID)");
+				ps.setInt(1, Operateur.getIdentifiant());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -164,8 +164,7 @@ public class OperateurDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Operateur(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
+					retour = new Operateur(rs.getString("OPT_NOM"),rs.getInt("OPT_ID"), rs.getString("OPT_MDP"));
 
 			} catch (Exception ee) {
 				ee.printStackTrace();
@@ -213,8 +212,8 @@ public class OperateurDAO {
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Operateur(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
+					retour.add(new Operateur(rs.getString("OPT_NOM"),rs.getInt("OPT_ID"), rs.getString("OPT_MDP")));
+
 
 			} catch (Exception ee) {
 				ee.printStackTrace();
@@ -242,4 +241,4 @@ public class OperateurDAO {
 	}
 
 
-}
+

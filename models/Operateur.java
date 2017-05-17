@@ -4,11 +4,23 @@ public class Operateur {
 
 	protected  String nom;
 	protected int identifiant;
+	protected String mdp;
 
-	public Operateur(String Nom, int identifiant) {
+	public Operateur(String Nom, int identifiant, String mdp) {
 		this.nom = Nom;
 		this.identifiant = identifiant;
+		this.mdp = mdp;
 
+	}
+
+
+	public String getMdp() {
+		return mdp;
+	}
+
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
 	}
 
 

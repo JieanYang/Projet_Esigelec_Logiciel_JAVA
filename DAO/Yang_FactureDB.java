@@ -1,4 +1,4 @@
-package DB;
+package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -130,17 +130,71 @@ public class Yang_FactureDB {
 			rs = ps.executeQuery();
 			//passe la premiere ( et unique ) ligne retournee
 			if(rs.next())
-				retour = new Facture(rs.getInt("id_F"),rs.get)
-			
-			
-			
-			
+				retour = new Facture(rs.getInt("id_D"), null, null, null, null, null, 
+						rs.getInt("id_F"), rs.getString("modepaiement_F"),rs.getInt("num_F"),
+						rs.getString("date_F"));		
+		}catch(Exception ee){
+			ee.printStackTrace();
+		}finally{
+			//close the rs, the ps and the con
+			try{
+				if(rs != null)
+					rs.close();
+			}catch(Exception ignore){}
+			try{
+				if(ps != null)
+					ps.close();
+			}catch(Exception ignore){}
+			try{
+				if(con != null)
+					con.close();
+			}catch(Exception ignore){}
 		}
-		
-		
+		return retour;	
 	}
 	
 	
 	
+	public List<Facture> getListeFactures(){
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Facture> retour = new ArrayList<Facture>();
+		
+		//connexion DB
+		try{
+			
+			con = DriverManager.getConnection( URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM Yang_Facture");
+			
+			//execute request
+			rs = ps.executeQuery();
+			//travel the lines of the result
+			while(rs.next())
+				retour.add(new Facture(rs.getInt("id_D"), null, null, null, null, null, 
+						rs.getInt("id_F"), rs.getString("modepaiement_F"),rs.getInt("num_F"),
+						rs.getString("date_F")));
+			
+		}catch(Exception ee){
+			ee.printStackTrace();
+		}finally{
+			//close rs, ps and con
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {}
+		}
+		return retour;
+		
+	}
 	
 }

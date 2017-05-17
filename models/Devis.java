@@ -1,12 +1,11 @@
 package models;
 
 public class Devis {
-	private int id;
-	private String nomdevis;
-	private Client client;
-	private String categorie;
-	private String nomclient;
-	private String date;
+	protected int id;
+	protected String nomdevis;
+	protected Client client;
+	protected String categorie;
+	protected String date;
 
 	public Devis() {
 		id = 0;
@@ -15,21 +14,14 @@ public class Devis {
 		categorie = null;
 	}
 
-	public Devis(int id, String nomdevis, Client client, String categorie) {
+	public Devis(int id, String nomdevis, Client client, String categorie, String date) {
 		this.id = id;
 		this.nomdevis = nomdevis;
 		this.client = client;
 		this.categorie = categorie;
+		this.date = date;
 	}
 
-
-	public String getNom() {
-		return nomclient;
-	}
-
-	public void setNom(String nom) {
-		this.nomclient = nom;
-	}
 
 	public int getId() {
 		return id;

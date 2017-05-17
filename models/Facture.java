@@ -2,57 +2,52 @@ package models;
 
 public class Facture extends Devis{
 	
-	private int id_facture;//produire automatiquement
-	private String modepaiement;
-	private int num;
-	private String date;
+	private int id_f;//produire automatiquement
+	private String modepaiement_f;
+	private int num_f;
+	private String date_f;
 	
-	public Facture(){
-		super();
-	}
-	
-	public Facture(int id, String nomdevis, Client client, String categorie){
-		super(id, nomdevis, client, categorie);
+		public Facture(Devis d, int id_f, String m, int num, String date){
+		super( d.id, d.nomdevis,d.client,d.categorie,d.date);
+		this.id_f=id_f;
+		this.modepaiement_f=m;
+		this.num_f=num;
+		this.date_f=date;
+
+		
 	}
 
-	public Facture(Devis devis){
-		super(devis.getId(), devis.getNomdevis(), devis.getClient(),devis.getCategorie() );
-	}
 	
-	public Facture(String text, String text2, String text3){
-		super(text, text2, text3);
-	}
-//get
+	//get
 	public int getId_Facture(){
-		return id_facture;
+		return id_f;
 	}
-	
 	public String getModepaiement_Facture(){
-		return modepaiement;
+		return modepaiement_f;
 	}
 	
 	public int getNum_Facture(){
-		return num;
+		return num_f;
 	}
 	
 	public String getDate_Facture(){
-		return date;
+		return date_f;
 	}
 //set
 	public void setId_Facture(int n){
-		this.id_facture = n;
+		this.id_f = n;
 	}
 	
 	public void setModepaiement_Facture(String m){
-		this.modepaiement = m;
+		this.modepaiement_f = m;
 	}
 	
 	public void setNum_Facture(int n){
-		this.num = n;
+		this.num_f = n;
 	}
 	
 	public void setDate_Facture(String d){
-		this.date = d;
+		this.date_f = d;
 	}
 	
 }

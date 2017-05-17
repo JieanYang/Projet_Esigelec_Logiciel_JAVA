@@ -1,198 +1,202 @@
 package DAO;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-	import java.sql.*;
-	import java.util.ArrayList;
-	import java.util.List;
+import models.Client;
+import models.Devis;
+import models.Fichemaintenance;
 
-	/**
-	 * Classe d'accès aux données contenues dans la table Fichemaintenance
-	 * 
-	 * @author diesnis
-	 * @version 1
-	 */
+/**
+ * Classe d'accès aux données contenues dans la table Fichemaintenance
+ * 
+ * @author diesnis
+ * @version 1
+ */
 public class FichemaintenanceDAO {
 
-		/**
-		 * Paramètres de connexion à la base de données oracle URL, LOGIN et PASS
-		 * sont des constantes
-		 */
-		final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-		final static String LOGIN = "BDD7"; // exemple BDD1
-		final static String PASS = "BDD7"; // exemple BDD1
+	/**
+	 * Paramètres de connexion à la base de données oracle URL, LOGIN et PASS
+	 * sont des constantes
+	 */
+	final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	final static String LOGIN = "BDD7"; // exemple BDD1
+	final static String PASS = "BDD7"; // exemple BDD1
 
-		/**
-		 * Constructeur de la classe
-		 * 
-		 */
-		public FichemaintenanceDAO() {
-			// chargement du pilote de bases de données
-			try {
-				Class.forName("oracle.jdbc.OracleDriver");
-			} catch (ClassNotFoundException e) {
-				System.err.println(
-						"Impossible de charger le pilote de BDD, ne pas oublier d'importer le fichier .jar dans le projet");
-			}
-
+	/**
+	 * Constructeur de la classe
+	 * 
+	 */
+	public FichemaintenanceDAO() {
+		// chargement du pilote de bases de données
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			System.err.println(
+					"Impossible de charger le pilote de BDD, ne pas oublier d'importer le fichier .jar dans le projet");
 		}
 
-		/**
-		 * Permet d'ajouter un Fichemaintenance dans la table Fichemaintenance Le mode est auto-commit
-		 * par défaut : chaque insertion est validée
-		 * 
-		 * @param Fichemaintenance
-		 *            l'Fichemaintenance à ajouter
-		 * @return retourne le nombre de lignes ajoutées dans la table
-		 */
-		public int ajouter(Fichemaintenance Fichemaintenance) {
-			Connection con = null;
-			PreparedStatement ps = null;
-			int retour = 0;
+	}
 
-			// connexion à la base de données
+	/**
+	 * Permet d'ajouter un Fichemaintenance dans la table Fichemaintenance Le
+	 * mode est auto-commit par défaut : chaque insertion est validée
+	 * 
+	 * @param Fichemaintenance
+	 *            l'Fichemaintenance à ajouter
+	 * @return retourne le nombre de lignes ajoutées dans la table
+	 */
+	public int ajouter(Fichemaintenance fichemaintenance) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
+
+		// connexion à la base de données
+		try {
+
+			// tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			// préparation de l'instruction SQL, chaque ? représente une valeur
+			// à communiquer dans l'insertion
+			// les getters permettent de récupérer les valeurs des attributs
+			// souhaités
+			ps = con.prepareStatement(
+					"INSERT INTO Fichemaintenance_FMA (FMA_ID,FMA_NOM,FMA_CLIENT,FMA_DEVIS,FMA_CATEGORIE) VALUES (?, ?, ?, ?, ?)");
+			ps.setInt(1, fichemaintenance.getId());
+			ps.setString(2, fichemaintenance.getNom());
+			ps.setInt(3, fichemaintenance.getClient().getId());
+			ps.setInt(4, fichemaintenance.getDevis().getId());
+			ps.setString(5, fichemaintenance.getCategorie());
+
+			// Exécution de la requête
+			retour = ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// fermeture du preparedStatement et de la connexion
 			try {
-
-				// tentative de connexion
-				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				// préparation de l'instruction SQL, chaque ? représente une valeur
-				// à communiquer dans l'insertion
-				// les getters permettent de récupérer les valeurs des attributs
-				// souhaités
-				ps = con.prepareStatement(
-						"INSERT INTO Fichemaintenance_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Fichemaintenance.getid());
-				ps.setString(2, Fichemaintenance.getnom());
-				ps.setString(3, Fichemaintenance.getville());
-				ps.setString(4, Fichemaintenance.getadresse());
-				ps.setString(5, Fichemaintenance.getdate());
-				ps.setInt(6, 5);
-
-				// Exécution de la requête
-				retour = ps.executeUpdate();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				// fermeture du preparedStatement et de la connexion
-				try {
-					if (ps != null)
-						ps.close();
-				} catch (Exception ignore) {
-				}
-				try {
-					if (con != null)
-						con.close();
-				} catch (Exception ignore) {
-				}
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
 			}
-			return retour;
-
-		}
-		/**
-		 * Permet d'ajouter un Fichemaintenance dans la table Fichemaintenance Le mode est auto-commit
-		 * par défaut : chaque insertion est validée
-		 * 
-		 * @param Fichemaintenance
-		 *            l'Fichemaintenance à ajouter
-		 * @return retourne le nombre de lignes ajoutées dans la table
-		 */
-		public int suppr(Fichemaintenance Fichemaintenance) {
-			Connection con = null;
-			PreparedStatement ps = null;
-			int retour = 0;
-
-			// connexion à la base de données
 			try {
-
-				// tentative de connexion
-				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				// préparation de l'instruction SQL, chaque ? représente une valeur
-				// à communiquer dans l'insertion
-				// les getters permettent de récupérer les valeurs des attributs
-				// souhaités
-				ps = con.prepareStatement(
-						"DELETE FROM Fichemaintenance_STT WHERE(STT_ID)");
-				ps.setInt(1, Fichemaintenance.getid());
-
-				// Exécution de la requête
-				retour = ps.executeUpdate();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				// fermeture du preparedStatement et de la connexion
-				try {
-					if (ps != null)
-						ps.close();
-				} catch (Exception ignore) {
-				}
-				try {
-					if (con != null)
-						con.close();
-				} catch (Exception ignore) {
-				}
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
 			}
-			return retour;
-
 		}
+		return retour;
 
+	}
 
-		/**
-		 * Permet de récupérer un Fichemaintenance à partir de sa référence
-		 * 
-		 * @param id
-		 *            la référence de l'Fichemaintenance à récupérer
-		 * @return l'Fichemaintenance trouvé; null si aucun Fichemaintenance ne correspond à cette
-		 *         référence
-		 */
-		public Fichemaintenance getFichemaintenance(int id) {
+	/**
+	 * Permet d'ajouter un Fichemaintenance dans la table Fichemaintenance Le
+	 * mode est auto-commit par défaut : chaque insertion est validée
+	 * 
+	 * @param Fichemaintenance
+	 *            l'Fichemaintenance à ajouter
+	 * @return retourne le nombre de lignes ajoutées dans la table
+	 */
+	public int suppr(Fichemaintenance fichemaintenance) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour = 0;
 
-			Connection con = null;
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			Fichemaintenance retour = null;
+		// connexion à la base de données
+		try {
 
-			// connexion à la base de données
+			// tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			// préparation de l'instruction SQL, chaque ? représente une valeur
+			// à communiquer dans l'insertion
+			// les getters permettent de récupérer les valeurs des attributs
+			// souhaités
+			ps = con.prepareStatement("DELETE FROM Fichemaintenance_FMA WHERE(FMA_ID)");
+			ps.setInt(1, fichemaintenance.getId());
+
+			// Exécution de la requête
+			retour = ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// fermeture du preparedStatement et de la connexion
 			try {
-
-				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Fichemaintenance_STT WHERE STT_ID = ?");
-				ps.setInt(1, id);
-
-				// on exécute la requête
-				// rs contient un pointeur situé juste avant la première ligne
-				// retournée
-				rs = ps.executeQuery();
-				// passe à la première (et unique) ligne retournée
-				if (rs.next())
-					retour = new Fichemaintenance(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
-
-			} catch (Exception ee) {
-				ee.printStackTrace();
-			} finally {
-				// fermeture du ResultSet, du PreparedStatement et de la Connexion
-				try {
-					if (rs != null)
-						rs.close();
-				} catch (Exception ignore) {
-				}
-				try {
-					if (ps != null)
-						ps.close();
-				} catch (Exception ignore) {
-				}
-				try {
-					if (con != null)
-						con.close();
-				} catch (Exception ignore) {
-				}
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
 			}
-			return retour;
-
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
 		}
+		return retour;
 
-		/**
+	}
+
+	/**
+	 * Permet de récupérer un Fichemaintenance à partir de sa référence
+	 * 
+	 * @param id
+	 *            la référence de l'Fichemaintenance à récupérer
+	 * @return l'Fichemaintenance trouvé; null si aucun Fichemaintenance ne
+	 *         correspond à cette référence
+	 */
+	public Fichemaintenance getFichemaintenance(int id) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Fichemaintenance retour = null;
+
+		// connexion à la base de données
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM Fichemaintenance_FMA WHERE FMA_ID = ?");
+			ps.setInt(1, id);
+
+			// on exécute la requête
+			// rs contient un pointeur situé juste avant la première ligne
+			// retournée
+			rs = ps.executeQuery();
+			// passe à la première (et unique) ligne retournée
+			if (rs.next()) {
+				Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
+				Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
+				retour = new Fichemaintenance(rs.getInt("FMA_ID"), rs.getString("FMA_NOM"), client, devis,
+						rs.getString("FMA_CATEGORIE"));
+
+			}
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+
+	/**
 		 * Permet de récupérer tous les Fichemaintenances stockés dans la table Fichemaintenance
 		 * 
 		 * @return une ArrayList d'Fichemaintenances
@@ -213,10 +217,11 @@ public class FichemaintenanceDAO {
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
-				while (rs.next())
-					retour.add(new Fichemaintenance(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
-
+				while (rs.next()){
+					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
+					Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
+					retour.add(new Fichemaintenance(rs.getInt("FMA_ID"),rs.getString("FMA_NOM"),client,devis,rs.getString("FMA_CATEGORIE")));
+				}
 			} catch (Exception ee) {
 				ee.printStackTrace();
 			} finally {
@@ -240,7 +245,6 @@ public class FichemaintenanceDAO {
 			return retour;
 
 		}
-	}
-
-
 }
+
+

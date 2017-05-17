@@ -46,7 +46,7 @@ public class ResponsableDAO {
 		 *            l'Responsable à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Responsable Responsable) {
+		public int ajouter(Responsable responsable) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -61,13 +61,11 @@ public class ResponsableDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO Responsable_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Responsable.getid());
-				ps.setString(2, Responsable.getnom());
-				ps.setString(3, Responsable.getville());
-				ps.setString(4, Responsable.getadresse());
-				ps.setString(5, Responsable.getdate());
-				ps.setInt(6, 5);
+						"INSERT INTO Responsable_RSP (RSP_ID,RSP_NOM,RSP_MDP) VALUES (?, ?, ?)");
+				ps.setInt(1, responsable.getIdentifiant());
+				ps.setString(2, responsable.getNom());
+				ps.setString(3, responsable.getMdp());
+
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -113,8 +111,8 @@ public class ResponsableDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Responsable_STT WHERE(STT_ID)");
-				ps.setInt(1, Responsable.getid());
+						"DELETE FROM Responsable_RSP WHERE(RSP_ID)");
+				ps.setInt(1, Responsable.getIdentifiant());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -167,9 +165,8 @@ public class ResponsableDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Responsable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
-
+					retour = new Responsable(rs.getString("RSP_NOM"), rs.getInt("RSP_ID"), rs.getString("RSP_MDP"));
+							
 			} catch (Exception ee) {
 				ee.printStackTrace();
 			} finally {
@@ -216,8 +213,7 @@ public class ResponsableDAO {
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Responsable(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
+					retour.add(new Responsable(rs.getString("RSP_NOM"), rs.getInt("RSP_ID"), rs.getString("RSP_MDP")));
 
 			} catch (Exception ee) {
 				ee.printStackTrace();
@@ -245,4 +241,4 @@ public class ResponsableDAO {
 	}
 
 
-}
+

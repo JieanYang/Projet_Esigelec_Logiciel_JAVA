@@ -61,9 +61,9 @@ public class DevisDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO DEVIS_DVI (DVI_ID,DVI_NOM,DVI_CLIENT,DVI_CATEGORIE,DVI_DATE) VALUES (?, ?, ?, ?, ?)");
+						"INSERT INTO DEVIS_DVI (DVI_ID,DVI_NOM,DVI_CLIENT_ID,DVI_CATEGORIE,DVI_DATE) VALUES (?, ?, ?, ?, ?)");
 				ps.setInt(1, devis.getId());
-				ps.setString(2, devis.getNom());
+				ps.setString(2, devis.getNomdevis());
 				ps.setInt(3, devis.getClient().getId());
 				ps.setString(4, devis.getCategorie());
 				ps.setString(5, devis.getDate());
@@ -147,7 +147,7 @@ public class DevisDAO {
 		 * @return l'Devis trouvé; null si aucun Devis ne correspond à cette
 		 *         référence
 		 */
-		public Devis getDevis(int id) {
+		public static Devis getDevis(int id) {
 
 			Connection con = null;
 			PreparedStatement ps = null;
@@ -167,12 +167,12 @@ public class DevisDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next()) {
-					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT"));
+					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
 				
-					retour = new Devis(rs.getInt("DVI_ID"), rs.getString("DVI_NOM"),client ,
-							rs.getString("DVI_CATEGORIE"));
+					retour = new Devis(rs.getInt("DVI_ID"), rs.getString("DVI_NOM"),client,
+							rs.getString("DVI_CATEGORIE"),rs.getString("DVI_DATE"));
 				}
-			} catch (Exception ee) {
+			} catch (Exception ee) { 
 				ee.printStackTrace();
 			} finally {
 				// fermeture du ResultSet, du PreparedStatement et de la Connexion
@@ -218,10 +218,10 @@ public class DevisDAO {
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next()){
-					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT"));
+					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
 				
 					Devis toto = new Devis(rs.getInt("DVI_ID"), rs.getString("DVI_NOM"), client ,
-							rs.getString("DVI_CATEGORIE"));
+							rs.getString("DVI_CATEGORIE"),rs.getString("DVI_DATE"));
 				
 					retour.add(toto);
 

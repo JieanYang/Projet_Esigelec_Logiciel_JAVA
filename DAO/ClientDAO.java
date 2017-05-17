@@ -5,6 +5,8 @@ package DAO;
 	import java.util.ArrayList;
 	import java.util.List;
 
+import javax.swing.JButton;
+
 import models.Client;
 
 	/**
@@ -63,7 +65,7 @@ public class ClientDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO CLIENT_CLT (CLT_ID,STT_NOM,CLT_SIRET,CLT_CODEAPE,CLT_ADRESSE) VALUES (?, ?, ?, ?, ?)");
+						"INSERT INTO CLIENT_CLT (CLT_ID,CLT_NOM,CLT_SIRET,CLT_CODEAPE,CLT_ADRESSE) VALUES (?, ?, ?, ?, ?)");
 				ps.setInt(1, client.getId());
 				ps.setString(2, client.getNom());
 				ps.setInt(3, client.getSiret());
