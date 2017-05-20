@@ -5,6 +5,9 @@ package DAO;
 	import java.util.ArrayList;
 	import java.util.List;
 
+import models.Client;
+import models.Devis;
+import models.Fichemaintenance;
 import models.Rapportactivite;
 
 	/**
@@ -46,7 +49,7 @@ public class RapportactiviteDAO {
 		 *            l'Rapportactivite à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Rapportactivite Rapportactivite) {
+		public int ajouter(Rapportactivite rapportactivite) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
@@ -61,13 +64,12 @@ public class RapportactiviteDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO Rapportactivite_STT (STT_ID,STT_NOM,STT_VILLE,STT_ADR,STT_DATE_INST,STT_TST_ID) VALUES (?, ?, ?, ?, ?, ?)");
-				ps.setInt(1, Rapportactivite.getid());
-				ps.setString(2, Rapportactivite.getnom());
-				ps.setString(3, Rapportactivite.getville());
-				ps.setString(4, Rapportactivite.getadresse());
-				ps.setString(5, Rapportactivite.getdate());
-				ps.setInt(6, 5);
+						"INSERT INTO Rapportactivite_RPA (RPA_ID,RPA_DATE,RPA_COMMENTAIRE,RPA_DEVIS,RPA_CLIENT) VALUES (?, ?, ?, ?, ?, ?)");
+				ps.setInt(1, rapportactivite.getId());
+				ps.setString(2, rapportactivite.getDate());
+				ps.setString(3, rapportactivite.getCommentaire());
+				ps.setInt(4, rapportactivite.getDevis().getId());
+				ps.setInt(5, rapportactivite.getClient().getId());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -91,7 +93,7 @@ public class RapportactiviteDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Rapportactivite dans la table Rapportactivite Le mode est auto-commit
+		 * Permet de suppr un Rapportactivite dans la table Rapportactivite Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
 		 * @param Rapportactivite
@@ -113,8 +115,8 @@ public class RapportactiviteDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM Rapportactivite_STT WHERE(STT_ID)");
-				ps.setInt(1, Rapportactivite.getid());
+						"DELETE FROM Rapportactivite_RPA WHERE(RPA_ID)");
+				ps.setInt(1, Rapportactivite.getId());
 
 				// Exécution de la requête
 				retour = ps.executeUpdate();
@@ -158,7 +160,7 @@ public class RapportactiviteDAO {
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Rapportactivite_STT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM Rapportactivite_RPA WHERE RPA_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
@@ -166,10 +168,11 @@ public class RapportactiviteDAO {
 				// retournée
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
-				if (rs.next())
-					retour = new Rapportactivite(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADRESSE"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID"));
-
+				if (rs.next()){
+				Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
+				Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
+				retour = new Rapportactivite(rs.getInt("RPA_ID"),rs.getString("RPA_DATE"),rs.getString("RPA_COMMENTAIRE"),devis,client);
+				}
 			} catch (Exception ee) {
 				ee.printStackTrace();
 			} finally {
@@ -215,10 +218,11 @@ public class RapportactiviteDAO {
 				// on exécute la requête
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
-				while (rs.next())
-					retour.add(new Rapportactivite(rs.getInt("STT_ID"), rs.getString("STT_NOM"), rs.getString("STT_VILLE"),
-							rs.getString("STT_ADR"), rs.getString("STT_DATE_INST"), rs.getInt("STT_TST_ID")));
-
+				while (rs.next()){
+				Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
+				Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
+					retour.add(new Rapportactivite(rs.getInt("RPA_ID"),rs.getString("RPA_DATE"),rs.getString("RPA_COMMENTAIRE"),devis,client));
+				}
 			} catch (Exception ee) {
 				ee.printStackTrace();
 			} finally {
@@ -245,4 +249,4 @@ public class RapportactiviteDAO {
 	}
 
 
-}
+

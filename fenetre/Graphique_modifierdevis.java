@@ -25,32 +25,11 @@ import models.Client;
 
 		private JButton retour;
 		/**
-		 * zone de texte pour le champ nom du client
+		 * zone de texte pour le devis a modifier
 		 */
-		private JTextField textFieldnom;
+		private JTextField textFieldid;
+		private JLabel labelid;
 
-		/**
-		 * zone de texte pour le champ date
-		 */
-		private JTextField textFielddate;
-
-		/**
-		 * zone de texte pour la categorie
-		 * 
-		 */
-		private JTextField textFieldcategorie;
-		private JTextField textField1;
-		private JTextField textField2;
-		private JTextField textField3;
-
-		private JLabel labelnom;
-
-		private JLabel labeldate;
-
-		private JLabel labelcategorie;
-		private JLabel label1;
-		private JLabel label2;
-		private JLabel label3;
 		private OperateurDAO OperateurDAO;
 		private ClientDAO ClientDAO;
 		private DevisDAO DevisDAO;
@@ -90,7 +69,7 @@ import models.Client;
 			retour = new JButton("retour");
 			retour.addActionListener(this);
 
-			textFielddate = new JTextField();
+			textFieldid = new JTextField();
 			textFieldnom = new JTextField();
 			textField1 = new JTextField();
 			textField2 = new JTextField();
@@ -104,23 +83,6 @@ import models.Client;
 			label2 = new JLabel("categorie 2:");
 			label3 = new JLabel("categorie 3:");
 			
-			// ajout des composants sur le container
-			// introduire une espace constant entre le champ texte et le composant
-			// suivant
-			labelnom.setBounds(20, 10, 150, 30);
-			textFieldnom.setBounds(20, 20, 460, 50);
-			label1.setBounds(20, 500, 150, 30);
-			textField1.setBounds(20, 550, 460, 50);
-			label2.setBounds(20, 600, 150, 30);
-			textField2.setBounds(20, 650, 460, 50);
-			label3.setBounds(20, 750, 150, 30);
-			textField3.setBounds(20, 800, 460, 50);
-			labeldate.setBounds(20, 110, 150, 30);
-			textFielddate.setBounds(20, 150, 460, 50);
-			labelcategorie.setBounds(20, 210, 150, 30);
-			textFieldcategorie.setBounds(20, 250, 460, 50);
-			modifierdevis.setBounds(20, 330, 150, 30);
-			retour.setBounds(180, 330, 150, 30);
 			
 			this.add(retour);
 		}
