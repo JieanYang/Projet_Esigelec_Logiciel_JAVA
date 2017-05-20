@@ -1,4 +1,5 @@
 package fenetre;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -25,6 +26,12 @@ public class Graphique extends JFrame implements ActionListener {
 
 	private JPanel containerPanel;
 	private JPanel operateur;
+	private JPanel maintenance;
+	private JPanel client;
+	private JPanel affecter;
+	private JPanel validation;
+	private JPanel modifierdevis;
+	private JPanel modifierfiche;
 
 	/**
 	 * bouton de selection
@@ -49,13 +56,19 @@ public class Graphique extends JFrame implements ActionListener {
 		// this.DAO = new DAO();
 
 		// on fixe le titre de la fenêtre
-		this.setTitle("Menu");
+		this.setTitle("Lociciel maintenance");
 		// initialisation de la taille de la fenêtre
 		this.setSize(500, 630);
 		this.setLocationRelativeTo(null);
 		// création du conteneur
 		containerPanel = new JPanel();
 		operateur = new Graphique_saisiroperateur(this);
+		maintenance = new Graphique_saisirmaintenance(this);
+		client = new Graphique_saisirclient(this);
+		affecter = new Graphique_affecteroperateur(this);
+		validation = new Graphique_validation(this);
+		modifierfiche = new Graphique_modifierfiche(this);
+		modifierdevis = new Graphique_modifierdevis(this);
 
 		// choix du Layout pour ce conteneur
 		// il permet de gérer la position des éléments
@@ -70,20 +83,25 @@ public class Graphique extends JFrame implements ActionListener {
 		// instantiation des composants graphiques
 
 		boutonvalidation = new JButton("validation");
+		boutonvalidation.addActionListener(this);
 
 		boutonsaisirclient = new JButton("saisirclient");
+		boutonsaisirclient.addActionListener(this);
 
 		boutonsaisirmaintenance = new JButton("saisirmaintenance");
 		boutonsaisirmaintenance.addActionListener(this);
 
 		boutonsaisiroperateur = new JButton("saisiroperateur");
+		boutonsaisiroperateur.addActionListener(this);
 
 		boutonmodifierdevis = new JButton("modifierdevis");
+		boutonmodifierdevis.addActionListener(this);
 
 		boutonaffecteroperateur = new JButton("affecteroperateur");
 		boutonaffecteroperateur.addActionListener(this);
 
 		boutonmodifierfiche = new JButton("modifierfiche");
+		boutonmodifierfiche.addActionListener(this);
 
 		boutonfacturation = new JButton("facturation de preComptable");
 
@@ -108,20 +126,18 @@ public class Graphique extends JFrame implements ActionListener {
 		boutonsuivireglement.setBounds(175, 438, 150, 30);
 		boutoncloturedossier.setBounds(175, 490, 150, 30);
 		boutoneditionrapport.setBounds(125, 542, 250, 30);
-		
-		
+
 		containerPanel.add(boutonvalidation);
 		containerPanel.add(boutonsaisirclient);
 		containerPanel.add(boutonsaisirmaintenance);
 		containerPanel.add(boutonsaisiroperateur);
-		containerPanel.add(boutonmodifierdevis);	
+		containerPanel.add(boutonmodifierdevis);
 		containerPanel.add(boutonaffecteroperateur);
 		containerPanel.add(boutonmodifierfiche);
 		containerPanel.add(boutonfacturation);
 		containerPanel.add(boutonsuivireglement);
 		containerPanel.add(boutoncloturedossier);
 		containerPanel.add(boutoneditionrapport);
-
 
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
 		// composants
@@ -139,18 +155,32 @@ public class Graphique extends JFrame implements ActionListener {
 	public void switchPanel() {
 		this.setContentPane(containerPanel);
 	}
-	
+
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == boutonsaisirmaintenance) {
-			this.dispose();
-			Graphiquemaintenance ap = new Graphiquemaintenance();
+			this.setContentPane(maintenance);
 		}
 		if (ae.getSource() == boutonsuivireglement) {
 			this.dispose();
 			Graphique_Yang apa = new Graphique_Yang();
 		}
-		if (ae.getSource() == boutonaffecteroperateur) {
+		if (ae.getSource() == boutonsaisiroperateur) {
 			this.setContentPane(operateur);
+		}
+		if (ae.getSource() == boutonaffecteroperateur) {
+			this.setContentPane(affecter);
+		}
+		if (ae.getSource() == boutonsaisirclient) {
+			this.setContentPane(client);
+		}
+		if (ae.getSource() == boutonvalidation) {
+			this.setContentPane(client);
+		}
+		if (ae.getSource() == boutonmodifierdevis) {
+			this.setContentPane(modifierdevis);
+		}
+		if (ae.getSource() == boutonmodifierfiche) {
+			this.setContentPane(modifierfiche);
 		}
 		this.revalidate();
 	}

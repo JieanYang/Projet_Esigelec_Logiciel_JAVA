@@ -14,10 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import DAO.ClientDAO;
+import DAO.FichemaintenanceDAO;
 import models.Devis;
 
-public class Graphiquemaintenance extends JFrame implements ActionListener {
-	private JPanel containerPanel;
+public class Graphique_saisirmaintenance extends JPanel implements ActionListener {
+	private Graphique mainApp;
 	/**
 	 * bouton de selection
 	 */
@@ -45,31 +46,20 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 	private JLabel labeldate;
 
 	private JLabel labelcategorie;
+	
+	private FichemaintenanceDAO Fiche;
 
 	/**
 	 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
 	 */
-	public Graphiquemaintenance() {
+	public Graphique_saisirmaintenance(Graphique main) {
+			this.mainApp = main;
+			
+			// on instancie la classe Client DAO
+			this.Fiche = new FichemaintenanceDAO();
 
-		// on fixe le titre de la fenêtre
-		this.setTitle("saisir une maintenance");
-		// initialisation de la taille de la fenêtre
-		this.setSize(500, 630);
-		this.setLocationRelativeTo(null);
-		// création du conteneur
-		containerPanel = new JPanel();
-
-		// choix du Layout pour ce conteneur
-		// il permet de gérer la position des éléments
-		// il autorisera un retaillage de la fenêtre en conservant la
-		// présentation
-		// BoxLayout permet par exemple de positionner les élements sur une
-		// colonne ( PAGE_AXIS )
-		containerPanel.setLayout(null);
-
-		// choix de la couleur pour le conteneur
-		containerPanel.setBackground(Color.lightGray);
-		// instantiation des composants graphiques
+			// on fixe le titre de la fenêtre
+			this.setName("saisir un operateur");
 
 		creerdemande = new JButton("creer une demande");
 		creerdemande.addActionListener(this);
@@ -97,34 +87,24 @@ public class Graphiquemaintenance extends JFrame implements ActionListener {
 		retour.setBounds(180, 330, 150, 30);
 		
 		
-		containerPanel.add(labelnom);
-		containerPanel.add(textFieldnom);
-		containerPanel.add(labeldate);
-		containerPanel.add(textFielddate);
-		containerPanel.add(labelcategorie);
-		containerPanel.add(textFieldcategorie);
-		containerPanel.add(creerdemande);
-		containerPanel.add(retour);
-		// ajouter une bordure vide de taille constante autour de l'ensemble des
-		// composants
-		containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		this.add(labelnom);
+		this.add(textFieldnom);
+		this.add(labeldate);
+		this.add(textFielddate);
+		this.add(labelcategorie);
+		this.add(textFieldcategorie);
+		this.add(creerdemande);
+		this.add(retour);
 
-		// permet de quitter l'application si on ferme la fenêtre
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.setContentPane(containerPanel);
 
-		// affichage de la fenêtre
-		this.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == creerdemande) {
-			this.dispose();
 		}
 		if (ae.getSource() == retour) {
-			Graphique ap = new Graphique();
-			this.dispose();
+			this.mainApp.switchPanel();
 
 		}
 

@@ -1,5 +1,6 @@
 package fenetre;
-	import java.awt.event.ActionEvent;
+	import java.awt.Color;
+import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 
 	import javax.swing.JButton;
@@ -60,6 +61,18 @@ import models.Client;
 
 			// on fixe le titre de la fenêtre
 			this.setName("saisir un operateur");
+			
+
+			// choix du Layout pour ce conteneur
+			// il permet de gérer la position des éléments
+			// il autorisera un retaillage de la fenêtre en conservant la
+			// présentation
+			// BoxLayout permet par exemple de positionner les élements sur une
+			// colonne ( PAGE_AXIS )
+			this.setLayout(null);
+
+			// choix de la couleur pour le conteneur
+			this.setBackground(Color.lightGray);
 
 			// instantiation des composants graphiques
 

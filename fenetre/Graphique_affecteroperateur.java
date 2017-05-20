@@ -1,29 +1,25 @@
 package fenetre;
 	import java.awt.Color;
-	import java.awt.Dimension;
-	import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 
-	import javax.swing.BorderFactory;
-	import javax.swing.Box;
-	import javax.swing.BoxLayout;
 	import javax.swing.JButton;
-	import javax.swing.JFrame;
 	import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 	import javax.swing.JTextField;
 
 	import DAO.ClientDAO;
+import DAO.OperateurDAO;
 import models.Client;
-import models.Devis;
 
-	public class Graphique_saisirclient extends JPanel implements ActionListener {
+	public class Graphique_affecteroperateur extends JPanel implements ActionListener {
 		private Graphique mainApp;
+		
 		/**
 		 * bouton de selection
 		 */
-		private JButton creerclient;
+		private JButton affecteroperateur;
 
 		private JButton retour;
 		/**
@@ -53,16 +49,20 @@ import models.Devis;
 		private JLabel label1;
 		private JLabel label2;
 		private JLabel label3;
-		private ClientDAO clientDAO;
+		private OperateurDAO OperateurDAO;
 
 		/**
 		 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
 		 */
-		public Graphique_saisirclient(Graphique main) {
+		public Graphique_affecteroperateur(Graphique main) {
 			this.mainApp = main;
+			
 			// on instancie la classe Client DAO
-			this.clientDAO = new ClientDAO();
+			this.OperateurDAO = new OperateurDAO();
 
+			// on fixe le titre de la fenêtre
+			this.setName("affecter un operateur");
+			
 
 			// choix du Layout pour ce conteneur
 			// il permet de gérer la position des éléments
@@ -74,10 +74,11 @@ import models.Devis;
 
 			// choix de la couleur pour le conteneur
 			this.setBackground(Color.lightGray);
+
 			// instantiation des composants graphiques
 
-			creerclient = new JButton("creer un client");
-			creerclient.addActionListener(this);
+			affecteroperateur = new JButton("affecter un operateur");
+			affecteroperateur.addActionListener(this);
 
 			retour = new JButton("retour");
 			retour.addActionListener(this);
@@ -111,57 +112,23 @@ import models.Devis;
 			textFielddate.setBounds(20, 150, 460, 50);
 			labelcategorie.setBounds(20, 210, 150, 30);
 			textFieldcategorie.setBounds(20, 250, 460, 50);
-			creerclient.setBounds(20, 330, 150, 30);
+			affecteroperateur.setBounds(20, 330, 150, 30);
 			retour.setBounds(180, 330, 150, 30);
 			
-			
-			this.add(labelnom);
-			this.add(label1);
-			this.add(label2);
-			this.add(label3);
-			this.add(textField1);
-			this.add(textField2);
-			this.add(textField3);
-			
-			
-			this.add(textFieldnom);
-			this.add(labeldate);
-			this.add(textFielddate);
-			this.add(labelcategorie);
-			this.add(textFieldcategorie);
-			this.add(creerclient);
 			this.add(retour);
-
-			
 		}
 
 		public void actionPerformed(ActionEvent ae) {
 			int retour1;
-			if (ae.getSource() == creerclient) {
-				Client a = new Client(Integer.parseInt(this.textField1.getText()), this.textFieldnom.getText(),
-						Integer.parseInt(this.textField2.getText()), Integer.parseInt(this.textField3.getText()),
-						this.textFieldcategorie.getText());
-				// on demande à la classe de communication d'envoyer l'Station
-				// dans la table Station
-				retour1 = clientDAO.ajouter(a);
-				// affichage du nombre de lignes ajoutées
-				// dans la bdd pour vérification
-				System.out.println("" + retour + " ligne ajoutée ");
-				if (retour1 == 1)
-					JOptionPane.showMessageDialog(this, "Client ajouter !");
-				else
-					JOptionPane.showMessageDialog(this, "erreur ajout Client", "Erreur", JOptionPane.ERROR_MESSAGE);
+			if (ae.getSource() == affecteroperateur) {
 				
 			}
 			if (ae.getSource() == retour) {
 				this.mainApp.switchPanel();
-				
-			
+		
 
 			}
 
 		}
 
 	}
-
-
