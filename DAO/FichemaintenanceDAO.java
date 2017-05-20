@@ -47,7 +47,7 @@ public class FichemaintenanceDAO {
 	 *            l'Fichemaintenance à ajouter
 	 * @return retourne le nombre de lignes ajoutées dans la table
 	 */
-	public int ajouter(Fichemaintenance fichemaintenance) {
+	public static int ajouter(Fichemaintenance fichemaintenance) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int retour = 0;
@@ -57,17 +57,17 @@ public class FichemaintenanceDAO {
 
 			// tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			// préparation de l'instruction SQL, chaque ? représente une valeur
+			// préparation de l'instruction SQL, chaque ? représente une
+			// valeur
 			// à communiquer dans l'insertion
 			// les getters permettent de récupérer les valeurs des attributs
 			// souhaités
 			ps = con.prepareStatement(
-					"INSERT INTO Fichemaintenance_FMA (FMA_ID,FMA_NOM,FMA_CLIENT,FMA_DEVIS,FMA_CATEGORIE) VALUES (?, ?, ?, ?, ?)");
+					"INSERT INTO Fichemaintenance_FMA (FMA_ID,FMA_CLIENT,FMA_DEVIS,FMA_CATEGORIE) VALUES (?, ?, ?, ?)");
 			ps.setInt(1, fichemaintenance.getId());
-			ps.setString(2, fichemaintenance.getNom());
-			ps.setInt(3, fichemaintenance.getClient().getId());
-			ps.setInt(4, fichemaintenance.getDevis().getId());
-			ps.setString(5, fichemaintenance.getCategorie());
+			ps.setInt(2, fichemaintenance.getClient().getId());
+			ps.setInt(3, fichemaintenance.getDevis().getId());
+			ps.setString(4, fichemaintenance.getCategorie());
 
 			// Exécution de la requête
 			retour = ps.executeUpdate();
@@ -109,7 +109,8 @@ public class FichemaintenanceDAO {
 
 			// tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			// préparation de l'instruction SQL, chaque ? représente une valeur
+			// préparation de l'instruction SQL, chaque ? représente une
+			// valeur
 			// à communiquer dans l'insertion
 			// les getters permettent de récupérer les valeurs des attributs
 			// souhaités
@@ -168,8 +169,7 @@ public class FichemaintenanceDAO {
 			if (rs.next()) {
 				Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
 				Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
-				retour = new Fichemaintenance(rs.getInt("FMA_ID"), rs.getString("FMA_NOM"), client, devis,
-						rs.getString("FMA_CATEGORIE"));
+				retour = new Fichemaintenance(rs.getInt("FMA_ID"), client, devis, rs.getString("FMA_CATEGORIE"));
 
 			}
 		} catch (Exception ee) {
@@ -196,55 +196,95 @@ public class FichemaintenanceDAO {
 
 	}
 
-	/**
-		 * Permet de récupérer tous les Fichemaintenances stockés dans la table Fichemaintenance
-		 * 
-		 * @return une ArrayList d'Fichemaintenances
-		 */
-		public List<Fichemaintenance> getListeFichemaintenances() {
+	public static Fichemaintenance affecteroperateur(int id, int operateur) {
 
-			Connection con = null;
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			List<Fichemaintenance> retour = new ArrayList<Fichemaintenance>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Fichemaintenance retour = null;
 
-			// connexion à la base de données
+		// connexion à la base de données
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("UPDATE FROM Fichemaintenance_FMA SET Operateur_FMA = ? WHERE FMA_ID = ?");
+			ps.setInt(1, operateur);
+			ps.setInt(2, id);
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
 			try {
-
-				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM Fichemaintenance_STT");
-
-				// on exécute la requête
-				rs = ps.executeQuery();
-				// on parcourt les lignes du résultat
-				while (rs.next()){
-					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
-					Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
-					retour.add(new Fichemaintenance(rs.getInt("FMA_ID"),rs.getString("FMA_NOM"),client,devis,rs.getString("FMA_CATEGORIE")));
-				}
-			} catch (Exception ee) {
-				ee.printStackTrace();
-			} finally {
-				// fermeture du rs, du preparedStatement et de la connexion
-				try {
-					if (rs != null)
-						rs.close();
-				} catch (Exception ignore) {
-				}
-				try {
-					if (ps != null)
-						ps.close();
-				} catch (Exception ignore) {
-				}
-				try {
-					if (con != null)
-						con.close();
-				} catch (Exception ignore) {
-				}
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
 			}
-			return retour;
-
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
 		}
+		return retour;
+
+	}
+
+	/**
+	 * Permet de récupérer tous les Fichemaintenances stockés dans la table
+	 * Fichemaintenance
+	 * 
+	 * @return une ArrayList d'Fichemaintenances
+	 */
+	public List<Fichemaintenance> getListeFichemaintenances() {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Fichemaintenance> retour = new ArrayList<Fichemaintenance>();
+
+		// connexion à la base de données
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("SELECT * FROM Fichemaintenance_STT");
+
+			// on exécute la requête
+			rs = ps.executeQuery();
+			// on parcourt les lignes du résultat
+			while (rs.next()) {
+				Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
+				Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
+				retour.add(new Fichemaintenance(rs.getInt("FMA_ID"), client, devis, rs.getString("FMA_CATEGORIE")));
+			}
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du rs, du preparedStatement et de la connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+
+
 }
-
-

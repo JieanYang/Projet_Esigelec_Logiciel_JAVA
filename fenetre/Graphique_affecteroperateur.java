@@ -1,17 +1,21 @@
 package fenetre;
 	import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 
-	import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 	import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 	import javax.swing.JTextField;
 
 	import DAO.ClientDAO;
+import DAO.FichemaintenanceDAO;
 import DAO.OperateurDAO;
 import models.Client;
+import models.Fichemaintenance;
 
 	public class Graphique_affecteroperateur extends JPanel implements ActionListener {
 		private Graphique mainApp;
@@ -25,31 +29,20 @@ import models.Client;
 		/**
 		 * zone de texte pour le champ nom du client
 		 */
-		private JTextField textFieldnom;
+		private JTextField textFieldmaintenance;
 
 		/**
 		 * zone de texte pour le champ date
 		 */
-		private JTextField textFielddate;
+		private JTextField textFieldoperateur;
 
-		/**
-		 * zone de texte pour la categorie
-		 * 
-		 */
-		private JTextField textFieldcategorie;
-		private JTextField textField1;
-		private JTextField textField2;
-		private JTextField textField3;
 
-		private JLabel labelnom;
+		private JLabel labelmaintenance;
 
-		private JLabel labeldate;
+		private JLabel labeloperateur;
 
-		private JLabel labelcategorie;
-		private JLabel label1;
-		private JLabel label2;
-		private JLabel label3;
 		private OperateurDAO OperateurDAO;
+		private FichemaintenanceDAO fichemaintenceDAO;
 
 		/**
 		 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
@@ -59,6 +52,7 @@ import models.Client;
 			
 			// on instancie la classe Client DAO
 			this.OperateurDAO = new OperateurDAO();
+			this.fichemaintenceDAO = new FichemaintenanceDAO();
 
 			// on fixe le titre de la fenêtre
 			this.setName("affecter un operateur");
@@ -70,8 +64,7 @@ import models.Client;
 			// présentation
 			// BoxLayout permet par exemple de positionner les élements sur une
 			// colonne ( PAGE_AXIS )
-			this.setLayout(null);
-
+			this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 			// choix de la couleur pour le conteneur
 			this.setBackground(Color.lightGray);
 
@@ -83,46 +76,45 @@ import models.Client;
 			retour = new JButton("retour");
 			retour.addActionListener(this);
 
-			textFielddate = new JTextField();
-			textFieldnom = new JTextField();
-			textField1 = new JTextField();
-			textField2 = new JTextField();
-			textField3 = new JTextField();
-			textFieldcategorie = new JTextField();
+			textFieldmaintenance = new JTextField();
+			textFieldoperateur = new JTextField();
+	
 
-			labeldate = new JLabel("date :");
-			labelnom = new JLabel("nom:");
-			labelcategorie = new JLabel("categorie :");
-			label1 = new JLabel("categorie1 :");
-			label2 = new JLabel("categorie 2:");
-			label3 = new JLabel("categorie 3:");
+			labelmaintenance = new JLabel("mettre la maintenance ou va etre affecter l'operateur :");
+			labeloperateur = new JLabel("mettre l'operateur de l'affectation:");
 			
-			// ajout des composants sur le container
-			// introduire une espace constant entre le champ texte et le composant
-			// suivant
-			labelnom.setBounds(20, 10, 150, 30);
-			textFieldnom.setBounds(20, 20, 460, 50);
-			label1.setBounds(20, 500, 150, 30);
-			textField1.setBounds(20, 550, 460, 50);
-			label2.setBounds(20, 600, 150, 30);
-			textField2.setBounds(20, 650, 460, 50);
-			label3.setBounds(20, 750, 150, 30);
-			textField3.setBounds(20, 800, 460, 50);
-			labeldate.setBounds(20, 110, 150, 30);
-			textFielddate.setBounds(20, 150, 460, 50);
-			labelcategorie.setBounds(20, 210, 150, 30);
-			textFieldcategorie.setBounds(20, 250, 460, 50);
-			affecteroperateur.setBounds(20, 330, 150, 30);
-			retour.setBounds(180, 330, 150, 30);
 			
+			this.add(labelmaintenance);
+			this.add(textFieldmaintenance);
+			
+			this.add(labeloperateur);
+			this.add(textFieldoperateur);
+			
+			this.add(affecteroperateur);
 			this.add(retour);
 		}
 
 		public void actionPerformed(ActionEvent ae) {
-			int retour1;
+			Fichemaintenance retour1;
 			if (ae.getSource() == affecteroperateur) {
+				try {
+					retour1 = FichemaintenanceDAO.affecteroperateur(Integer.parseInt(this.textFieldmaintenance.getText()),
+							Integer.parseInt(this.textFieldoperateur.getText()));
+					// affichage du nombre de lignes modifie
+					// dans la bdd pour vérification
+					System.out.println("" + retour + " ligne ajoutée ");
+					if (retour1 != null)
+						JOptionPane.showMessageDialog(this, "operateur affecter !");
+					else
+						JOptionPane.showMessageDialog(this, "erreur affectation operateur", "Erreur", JOptionPane.ERROR_MESSAGE);
+				
 				
 			}
+				catch(Exception ee){
+					ee.printStackTrace();
+					}
+				}
+				
 			if (ae.getSource() == retour) {
 				this.mainApp.switchPanel();
 		

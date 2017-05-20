@@ -1,4 +1,4 @@
-dddpackage models;
+package models;
 
 public class Client {
 	private int id;

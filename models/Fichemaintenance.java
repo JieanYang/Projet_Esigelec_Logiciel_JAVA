@@ -2,17 +2,17 @@ package models;
 
 public class Fichemaintenance {
 	private int id;
-	private String nom;
 	private Client client;
 	private Devis devis;
 	private String categorie;
+	private Operateur operateur;
 
-	public Fichemaintenance(int id, String nom, Client client, Devis devis, String categorie) {
+	public Fichemaintenance(int id, Client client, Devis devis, String categorie) {
 		this.id = id;
-		this.nom = nom;
 		this.client = client;
 		this.devis = devis;
 		this.categorie = categorie;
+		this.operateur = null;
 	}
 
 	public int getId() {
@@ -21,14 +21,6 @@ public class Fichemaintenance {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
 	}
 
 	public Client getClient() {

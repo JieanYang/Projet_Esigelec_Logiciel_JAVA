@@ -3,6 +3,7 @@ package fenetre;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,7 +77,7 @@ public class Graphique extends JFrame implements ActionListener {
 		// présentation
 		// BoxLayout permet par exemple de positionner les élements sur une
 		// colonne ( PAGE_AXIS )
-		containerPanel.setLayout(null);
+		containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.PAGE_AXIS));
 
 		// choix de la couleur pour le conteneur
 		containerPanel.setBackground(Color.lightGray);
@@ -115,17 +116,17 @@ public class Graphique extends JFrame implements ActionListener {
 		// ajout des composants sur le container
 		// introduire une espace constant entre le champ texte et le composant
 		// suivant
-		boutonvalidation.setBounds(175, 22, 150, 30);
-		boutonsaisirclient.setBounds(175, 74, 150, 30);
-		boutonsaisirmaintenance.setBounds(175, 126, 150, 30);
-		boutonsaisiroperateur.setBounds(175, 178, 150, 30);
-		boutonmodifierdevis.setBounds(175, 230, 150, 30);
-		boutonaffecteroperateur.setBounds(175, 282, 150, 30);
-		boutonmodifierfiche.setBounds(175, 334, 150, 30);
-		boutonfacturation.setBounds(150, 386, 200, 30);
-		boutonsuivireglement.setBounds(175, 438, 150, 30);
-		boutoncloturedossier.setBounds(175, 490, 150, 30);
-		boutoneditionrapport.setBounds(125, 542, 250, 30);
+		boutonvalidation.setBounds(175, 22, 150, 300);
+		boutonsaisirclient.setBounds(175, 74, 150, 300);
+		boutonsaisirmaintenance.setBounds(175, 126, 150, 300);
+		boutonsaisiroperateur.setBounds(175, 178, 150, 300);
+		boutonmodifierdevis.setBounds(175, 230, 150, 300);
+		boutonaffecteroperateur.setBounds(175, 282, 150, 300);
+		boutonmodifierfiche.setBounds(175, 334, 150, 300);
+		boutonfacturation.setBounds(150, 386, 200, 300);
+		boutonsuivireglement.setBounds(175, 438, 150, 300);
+		boutoncloturedossier.setBounds(175, 490, 150, 300);
+		boutoneditionrapport.setBounds(125, 542, 250, 300);
 
 		containerPanel.add(boutonvalidation);
 		containerPanel.add(boutonsaisirclient);
@@ -141,7 +142,7 @@ public class Graphique extends JFrame implements ActionListener {
 
 		// ajouter une bordure vide de taille constante autour de l'ensemble des
 		// composants
-		containerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
+		containerPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 50));
 
 		// permet de quitter l'application si on ferme la fenêtre
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -174,7 +175,7 @@ public class Graphique extends JFrame implements ActionListener {
 			this.setContentPane(client);
 		}
 		if (ae.getSource() == boutonvalidation) {
-			this.setContentPane(client);
+			this.setContentPane(validation);
 		}
 		if (ae.getSource() == boutonmodifierdevis) {
 			this.setContentPane(modifierdevis);

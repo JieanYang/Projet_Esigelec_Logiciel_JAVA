@@ -1,16 +1,23 @@
 package models;
 
+import java.awt.List;
+
 public class Operateur {
 
 	protected  String nom;
 	protected int identifiant;
 	protected String mdp;
+	protected List maintenance;
 
-	public Operateur(String Nom, int identifiant, String mdp) {
+	public Operateur( String Nom,int identifiant, String mdp) {
 		this.nom = Nom;
 		this.identifiant = identifiant;
 		this.mdp = mdp;
+		this.maintenance = null;
 
+	}
+	public List getmaintenance(){
+		return maintenance;
 	}
 
 

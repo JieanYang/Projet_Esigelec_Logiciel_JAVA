@@ -1,9 +1,11 @@
 package fenetre;
 	import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 
-	import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 	import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -76,7 +78,7 @@ import models.Client;
 			// présentation
 			// BoxLayout permet par exemple de positionner les élements sur une
 			// colonne ( PAGE_AXIS )
-			this.setLayout(null);
+			this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 			// choix de la couleur pour le conteneur
 			this.setBackground(Color.lightGray);

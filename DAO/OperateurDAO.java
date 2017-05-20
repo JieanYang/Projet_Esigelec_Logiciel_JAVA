@@ -45,7 +45,7 @@ public class OperateurDAO {
 		 *            l'Operateur à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Operateur operateur) {
+		public static int ajouter(Operateur operateur) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;
