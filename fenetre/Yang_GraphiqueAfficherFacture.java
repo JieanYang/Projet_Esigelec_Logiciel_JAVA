@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import DAO.Yang_FactureDB;
+import DAO.FactureDB;
 import controller.Yang_founction_fenetre;
 import models.Facture;
 
@@ -227,11 +227,11 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		int retour;
-		Yang_FactureDB cao_F = new Yang_FactureDB();
+		FactureDB cao_F = new FactureDB();
 		Facture f = new Facture();
 		
 	//1.demand id of facture
-		//button yes_1 ÕâÀïÃ»Íê³É nofini 
+		//button yes_1 ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ nofini 
 		//
 		if (arg0.getSource() == yes_1){
 			

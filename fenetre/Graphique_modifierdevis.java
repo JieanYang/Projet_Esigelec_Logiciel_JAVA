@@ -46,9 +46,6 @@ import models.Client;
 			this.DevisDAO = new DevisDAO();
 			
 
-			// on fixe le titre de la fenêtre
-			this.setName("validation");
-			
 
 			// choix du Layout pour ce conteneur
 			// il permet de gérer la position des éléments
@@ -72,8 +69,11 @@ import models.Client;
 			textFieldid = new JTextField();
 			
 			
+			this.add(textFieldid);
+			this.add(modifierdevis);
 			
 			this.add(retour);
+		
 		}
 
 		public void actionPerformed(ActionEvent ae) {

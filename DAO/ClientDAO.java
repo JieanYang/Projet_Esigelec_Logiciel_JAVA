@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import models.Client;
 
 	/**
-	 * Classe d'accès aux données contenues dans la table Comptable
+	 * Classe d'accès aux données contenues dans la table Client
 	 * 
 	 * @author diesnis
 	 * @version 1

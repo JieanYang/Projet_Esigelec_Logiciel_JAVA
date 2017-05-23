@@ -6,8 +6,12 @@ public class Facture extends Devis{
 	private String modepaiement_f;
 	private int num_f;
 	private String date_f;
+
+	public Facture(){
+		
+	}
 	
-		public Facture(Devis d, int id_f, String m, int num, String date){
+	public Facture(Devis d, int id_f, String m, int num, String date){
 		super( d.id, d.nomdevis,d.client,d.categorie,d.date);
 		this.id_f=id_f;
 		this.modepaiement_f=m;

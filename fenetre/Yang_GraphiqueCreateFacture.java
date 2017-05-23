@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 import DAO.ClientDAO;
 import DAO.DevisDAO;
-import DAO.Yang_FactureDB;
+import DAO.FactureDB;
 import controller.Yang_founction_fenetre;
 import models.Client;
 import models.Devis;
@@ -82,7 +82,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 	
 	public Yang_GraphiqueCreateFacture(){
 		this.setTitle(title_1);
-		//this.setTitle(title_2);¿ÉÐÞ¸Ä±êÌâ
+		//this.setTitle(title_2);ï¿½ï¿½ï¿½Þ¸Ä±ï¿½ï¿½ï¿½
 		
 		this.setSize(500, 630);
 		this.setLocationRelativeTo(null);
@@ -283,10 +283,9 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 	public void actionPerformed(ActionEvent arg0) {
 		
 		int retour;
-		Yang_FactureDB cao_F = new Yang_FactureDB();
+		FactureDB cao_F = new FactureDB();
 		DevisDAO cao_D = new DevisDAO();
 		ClientDAO cao_C = new ClientDAO();
-		Client c = new Client();
 		Devis d =new Devis();
 		//Facture f_old = new Facture();
 		Facture f = new Facture();
@@ -342,9 +341,8 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 			//yes
 			if (arg0.getSource() == yes_3){
 				retour = 0;
-				
-				c = cao_C.getClient(Integer.parseInt(this.client_D_3.getText()));
-				d = new Devis(Integer.parseInt(this.id_D_3.getText()),this.nomdevis_D_3.getText(),c,this.categorie_D_3.getText(),this.date_D_3.getText());
+				Client client = ClientDAO.getClient(Integer.parseInt(this.client_D_3.getText()));
+				d = new Devis(Integer.parseInt(this.id_D_3.getText()),this.nomdevis_D_3.getText(),client,this.categorie_D_3.getText(),this.date_D_3.getText());
 				
 			} 
 			//return

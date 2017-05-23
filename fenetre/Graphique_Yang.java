@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import DAO.Yang_FactureDB;
+import DAO.FactureDB;
 import models.Facture;
 
 public class Graphique_Yang extends JFrame implements ActionListener {
@@ -120,7 +120,7 @@ public class Graphique_Yang extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		int retour;
-		Yang_FactureDB cao_F = new Yang_FactureDB();
+		FactureDB cao_F = new FactureDB();
 		Facture f_old = new Facture();
 		Facture f = new Facture();// sans doute marche pas pour new
 		
