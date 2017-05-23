@@ -175,7 +175,7 @@ public class ClientDAO {
 				rs = ps.executeQuery();
 				// passe à la première (et unique) ligne retournée
 				if (rs.next())
-					retour = new Client(rs.getInt("CLT_ID"), rs.getString("STT_NOM"), rs.getInt("CLT_SIRET"),
+					retour = new Client(rs.getInt("CLT_ID"), rs.getString("CLT_NOM"), rs.getInt("CLT_SIRET"),
 							rs.getInt("CLT_CODEAPE"), rs.getString("CLT_ADRESSE"));
 
 			} catch (Exception ee) {
@@ -224,7 +224,7 @@ public class ClientDAO {
 				rs = ps.executeQuery();
 				// on parcourt les lignes du résultat
 				while (rs.next())
-					retour.add(new Client(rs.getInt("CLT_ID"), rs.getString("STT_NOM"), rs.getInt("CLT_SIRET"),
+					retour.add(new Client(rs.getInt("CLT_ID"), rs.getString("CLT_NOM"), rs.getInt("CLT_SIRET"),
 							rs.getInt("CLT_CODEAPE"), rs.getString("CLT_ADRESSE")));
 
 

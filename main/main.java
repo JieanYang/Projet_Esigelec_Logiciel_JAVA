@@ -1,6 +1,6 @@
 
 package main;
-import fenetre.Main;
+import fenetre.Appli;
 import fenetre.Graphique;
 import fenetre.Graphique_Yang;
 import fenetre.Graphique_saisirmaintenance;
@@ -24,8 +24,7 @@ public class main {
 		//System.out.println(ep.getId());
 		//System.out.println(ke.getId_Facture());
 		//graphique_saisirclient aap = new graphique_saisirclient();
-		Main aeie = new Main();
-		
+		//Main aeie = new Main();
 	}
 
 }

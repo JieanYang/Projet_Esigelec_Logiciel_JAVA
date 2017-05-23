@@ -8,10 +8,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Main extends JFrame implements ActionListener {
+import models.Client;
+
+public class Appli extends JFrame implements ActionListener {
 
 	private JPanel containerPanel_Authentifier;
 
@@ -23,7 +26,7 @@ public class Main extends JFrame implements ActionListener {
 	private JButton yes_authentifier;
 	private JButton no_authentifier;
 
-	public Main() {
+	public Appli() {
 		this.setTitle("Authentifier");
 
 		this.setSize(500, 630);
@@ -67,9 +70,16 @@ public class Main extends JFrame implements ActionListener {
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent ae) {
+		int retour1;
+		if (ae.getSource() == yes_authentifier) {
+			Graphique ae = new Graphique();
+
+
+		}
+		if (ae.getSource() == no) {
+
+		}
 		
 	}
 

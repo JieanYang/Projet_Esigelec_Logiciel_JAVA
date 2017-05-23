@@ -7,12 +7,10 @@ public class Devis {
 	protected String categorie;
 	protected String date;
 
-	public Devis() {
-		id = 0;
-		nomdevis = null;
-		client = null;
-		categorie = null;
+	public Devis(){
+		
 	}
+
 
 	public Devis(int id, String nomdevis, Client client, String categorie, String date) {
 		this.id = id;

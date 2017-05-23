@@ -38,6 +38,56 @@ public class DevisDAO {
 
 		}
 
+		
+		public static Devis creerdevis() {
+			Connection con = null;
+			PreparedStatement ps = null;
+			PreparedStatement ts = null;
+			ResultSet rs = null;
+			Devis d =new Devis();
+			int retour;
+			// connexion à la base de données
+			try {
+				// tentative de connexion
+				con = DriverManager.getConnection(URL, LOGIN, PASS);
+				// préparation de l'instruction SQL, chaque ? représente une valeur
+				// à communiquer dans l'insertion
+				// les getters permettent de récupérer les valeurs des attributs
+				// souhaités
+				ts = con.prepareStatement(
+						"SELECT MAX(DVI_ID) AS DVI_MAX FROM DEVIS_DVI");
+				rs=ts.executeQuery();
+				if(rs.next()) {	
+					d.setId(rs.getInt("DVI_MAX")+1);
+				}
+				
+				ps = con.prepareStatement(
+						"INSERT INTO DEVIS_DVI (DVI_ID) VALUES (?)");
+				ps.setInt(1,d.getId());
+
+			
+
+				// Exécution de la requête
+				retour = ps.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// fermeture du preparedStatement et de la connexion
+				try {
+					if (ps != null)
+						ps.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if (con != null)
+						con.close();
+				} catch (Exception ignore) {
+				}
+			}
+			return d;
+
+		}
 		/**
 		 * Permet d'ajouter un Devis dans la table Devis Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
@@ -91,7 +141,7 @@ public class DevisDAO {
 
 		}
 		/**
-		 * Permet d'ajouter un Devis dans la table Devis Le mode est auto-commit
+		 * Permet de suppr un Devis dans la table Devis Le mode est auto-commit
 		 * par défaut : chaque insertion est validée
 		 * 
 		 * @param Devis
