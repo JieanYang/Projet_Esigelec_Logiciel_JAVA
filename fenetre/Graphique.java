@@ -33,6 +33,7 @@ public class Graphique extends JFrame implements ActionListener {
 	private JPanel validation;
 	private JPanel modifierdevis;
 	private JPanel modifierfiche;
+	private JPanel editionrapport;
 
 	/**
 	 * bouton de selection
@@ -70,6 +71,7 @@ public class Graphique extends JFrame implements ActionListener {
 		validation = new Graphique_validation(this);
 		modifierfiche = new Graphique_modifierfiche(this);
 		modifierdevis = new Graphique_modifierdevis(this);
+		editionrapport = new Graphique_editionrapport(this);
 
 		// choix du Layout pour ce conteneur
 		// il permet de gérer la position des éléments
@@ -112,6 +114,7 @@ public class Graphique extends JFrame implements ActionListener {
 		boutoncloturedossier = new JButton("cloture du dossier");
 
 		boutoneditionrapport = new JButton("edition du rapport d'activite au client");
+		boutoneditionrapport.addActionListener(this);
 
 		// ajout des composants sur le container
 		// introduire une espace constant entre le champ texte et le composant
@@ -182,6 +185,9 @@ public class Graphique extends JFrame implements ActionListener {
 		}
 		if (ae.getSource() == boutonmodifierfiche) {
 			this.setContentPane(modifierfiche);
+		}
+		if (ae.getSource() == boutoneditionrapport) {
+			this.setContentPane(editionrapport);
 		}
 		this.revalidate();
 	}

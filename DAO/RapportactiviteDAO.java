@@ -49,7 +49,7 @@ public class RapportactiviteDAO {
 		 *            l'Rapportactivite à ajouter
 		 * @return retourne le nombre de lignes ajoutées dans la table
 		 */
-		public int ajouter(Rapportactivite rapportactivite) {
+		public static int ajouter(Rapportactivite rapportactivite) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			int retour = 0;

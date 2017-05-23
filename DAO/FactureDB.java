@@ -9,14 +9,14 @@ import models.Facture;
 import models.Devis;
 
 
-public class Yang_FactureDB {
+public class FactureDB {
 
 	//parametre pour DB
 	final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	final static String LOGIN = "BDD7"; // exemple BDD1
 	final static String PASS = "BDD7"; // exemple BDD1
 	
-	public Yang_FactureDB(){
+	public FactureDB(){
 		//chargement du pilote de DB
 		
 		try {
@@ -39,7 +39,7 @@ public class Yang_FactureDB {
 			con =DriverManager.getConnection(URL, LOGIN, PASS);
 			
 			ps = con.prepareStatement(//insert contents in oracle
-					"INSERT INTO Yang_Facture (id_D,client_id_D, modepaiement_F,num_F,date_F,id_F) VALUES (?, ?, ?, ?,?,?)");
+					"INSERT INTO FACTURE_FAC (FAC_id,FAC_client_id, FAC_modepaiement,FAC_num,FAC_date,FAC_DEVIS) VALUES (?, ?, ?, ?,?,?)");
 			
 			ps.setInt(1,f.getId());//Id of devis, une public facon dans Devis.java
 			ps.setInt(2,f.getClient().getSiret());//facon dans client.java
@@ -87,7 +87,7 @@ public class Yang_FactureDB {
 			
 			
 			ps = con.prepareStatement(
-					"DELETE FROM Yang_Facture WHERE id_F = ?");
+					"DELETE FROM FACTURE_FAC WHERE FAC_id = ?");
 			ps.setInt(1,f.getId_Facture());
 			
 			
@@ -123,7 +123,7 @@ public class Yang_FactureDB {
 		//connexion DB
 		try{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("SELECT * FROM Yang_Facture WHERE id_F = ?");
+			ps = con.prepareStatement("SELECT * FROM FACTURE_FAC WHERE FAC_id = ?");
 			ps.setInt(1, id);
 			
 			//excute la requete
@@ -133,9 +133,9 @@ public class Yang_FactureDB {
 			//passe la premiere ( et unique ) ligne retournee
 			if(rs.next()){
 				DevisDAO devisdao = new DevisDAO();
-				Devis devis = devisdao.getDevis(rs.getInt("id_D"));
+				Devis devis = devisdao.getDevis(rs.getInt("FAC_id"));
 				
-				retour = new Facture(devis,rs.getInt("id_F"),rs.getString("modepaiement_F"),rs.getInt("num_F"),rs.getString("date_F"));
+				retour = new Facture(devis,rs.getInt("FAC_id"),rs.getString("FAC_modepaiement"),rs.getInt("FAC_num"),rs.getString("FAC_date"));
 			}
 		}catch(Exception ee){
 			ee.printStackTrace();
@@ -170,7 +170,7 @@ public class Yang_FactureDB {
 		try{
 			
 			con = DriverManager.getConnection( URL, LOGIN, PASS);
-			ps = con.prepareStatement("SELECT * FROM Yang_Facture");
+			ps = con.prepareStatement("SELECT * FROM FACTURE_FAC");
 			
 			//execute request
 			rs = ps.executeQuery();
@@ -178,7 +178,7 @@ public class Yang_FactureDB {
 			while(rs.next()){
 				DevisDAO devisdao = new DevisDAO();
 				Devis devis = devisdao.getDevis(rs.getInt("id_D"));
-				retour.add(new Facture(devis,rs.getInt("id_F"),rs.getString("modepaiement_F"),rs.getInt("num_F"),rs.getString("date_F")));
+				retour.add(new Facture(devis,rs.getInt("FAC_id"),rs.getString("FAC_modepaiement"),rs.getInt("FAC_num"),rs.getString("FAC_date")));
 			}
 		}catch(Exception ee){
 			ee.printStackTrace();

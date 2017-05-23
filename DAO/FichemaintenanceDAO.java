@@ -207,7 +207,7 @@ public class FichemaintenanceDAO {
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE FROM Fichemaintenance_FMA SET Operateur_FMA = ? WHERE FMA_ID = ?");
+			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA SET Operateur_FMA = ? WHERE FMA_ID = ?");
 			ps.setInt(1, operateur);
 			ps.setInt(2, id);
 

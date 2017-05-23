@@ -6,9 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DAO.Yang_FactureDB;
 import controller.Yang_founction_fenetre;
 import models.Facture;
 
@@ -38,6 +40,17 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 	private JLabel modepaiement_F_label_2;
 	private JLabel num_F_label_2;
 	private JLabel date_F_label_2;
+	
+	private JLabel id_D_label_content_2;
+	private JLabel nomdevis_D_label_content_2;
+	private JLabel client_D_label_content_2;
+	private JLabel categorie_D_label_content_2;
+	private JLabel nomclient_D_label_content_2;
+	private JLabel date_D_label_content_2;
+	private JLabel id_F_label_content_2;
+	private JLabel modepaiement_F_label_content_2;
+	private JLabel num_F_label_content_2;
+	private JLabel date_F_label_content_2;
 	
 	//private JButton yes_2;
 	private JButton no_2;
@@ -91,6 +104,17 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 			num_F_label_2 = new JLabel("num de facture");
 			date_F_label_2 = new JLabel("date de facture");
 			
+			id_D_label_content_2 = new JLabel("I'm here!");
+			nomdevis_D_label_content_2 = new JLabel();
+			client_D_label_content_2 = new JLabel();
+			categorie_D_label_content_2 = new JLabel();
+			nomclient_D_label_content_2 = new JLabel();
+			date_D_label_content_2 = new JLabel();
+			id_F_label_content_2 = new JLabel();
+			modepaiement_F_label_content_2 = new JLabel();
+			num_F_label_content_2 = new JLabel();
+			date_F_label_content_2 = new JLabel();
+			
 			//yes_2 = new JButton("creer");
 			no_2 = new JButton("return");
 			//yes_2.addActionListener(this);
@@ -108,9 +132,21 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 			num_F_label_2.setBounds(20, 330, 150, 30);
 			date_F_label_2.setBounds(20, 370, 150, 30);
 			
+			id_D_label_content_2.setBounds(250, 10, 150, 30);
+			nomdevis_D_label_content_2.setBounds(250, 50, 150, 30);
+			client_D_label_content_2.setBounds(250, 90, 150, 30);
+			categorie_D_label_content_2.setBounds(250, 130, 150, 30);
+			nomclient_D_label_content_2.setBounds(250, 170, 150, 30);
+			date_D_label_content_2.setBounds(250, 210, 150, 30);
+			id_F_label_content_2.setBounds(250, 250, 150, 30);
+			modepaiement_F_label_content_2.setBounds(250, 290, 200, 30);
+			num_F_label_content_2.setBounds(250, 330, 150, 30);
+			date_F_label_content_2.setBounds(250, 370, 150, 30);
+			
 			
 			no_2.setBounds(300, 430, 150, 30);
 			
+
 			containerAffiFacutre_2.add(id_D_label_2);
 			containerAffiFacutre_2.add(nomdevis_D_label_2);
 			containerAffiFacutre_2.add(client_D_label_2);
@@ -121,6 +157,18 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 			containerAffiFacutre_2.add(modepaiement_F_label_2);
 			containerAffiFacutre_2.add(num_F_label_2);
 			containerAffiFacutre_2.add(date_F_label_2);
+			
+
+			containerAffiFacutre_2.add(id_D_label_content_2);
+			containerAffiFacutre_2.add(nomdevis_D_label_content_2);
+			containerAffiFacutre_2.add(client_D_label_content_2);
+			containerAffiFacutre_2.add(categorie_D_label_content_2);
+			containerAffiFacutre_2.add(nomclient_D_label_content_2);
+			containerAffiFacutre_2.add(date_D_label_content_2);
+			containerAffiFacutre_2.add(id_F_label_content_2);
+			containerAffiFacutre_2.add(modepaiement_F_label_content_2);
+			containerAffiFacutre_2.add(num_F_label_content_2);
+			containerAffiFacutre_2.add(date_F_label_content_2);
 	
 			//containerAffiFacutre_2.add(yes_2);
 			containerAffiFacutre_2.add(no_2);
@@ -178,9 +226,40 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		int retour;
+		Yang_FactureDB cao_F = new Yang_FactureDB();
+		Facture f = new Facture();
+		
 	//1.demand id of facture
-		//button yes_1
+		//button yes_1 这里没完成 nofini 
+		//
 		if (arg0.getSource() == yes_1){
+			
+			/*f = cao_F.getFacture(Integer.parseInt(this.IdFacture_1.getText()));
+			
+			
+			
+			if(f != null){
+				
+				id_D_label_2 = new JLabel("id de Devis"+Integer.toString(f.getId()));
+				nomdevis_D_label_2 = new JLabel("nomdevis de Devis"+f.getNomdevis());
+				client_D_label_2 = new JLabel("client de Devis"+Integer.toString(f.getClient().getId()));
+				categorie_D_label_2 = new JLabel("categorie de Devis"+f.getCategorie());
+				nomclient_D_label_2 = new JLabel("nomClient de Devis"+f.getClient().getNom());
+				date_D_label_2 = new JLabel("date de Devis"+f.getDate());
+				id_F_label_2 = new JLabel("id de facture"+Integer.toString(f.getId_Facture()));
+				modepaiement_F_label_2 = new JLabel("mode de paiement de facture"+f.getModepaiement_Facture());
+				num_F_label_2 = new JLabel("num de facture"+Integer.toString(f.getNum_Facture()));
+				date_F_label_2 = new JLabel("date de facture"+f.getDate_Facture());
+				
+				
+				
+			}else{
+				JOptionPane.showMessageDialog(this, "erreur chercher Facture", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}*/
+			
+			
+			
 			//il must verify the existance of facture
 			Yang_GraphiqueAfficherFacture a = new Yang_GraphiqueAfficherFacture();
 			a.setContentPane(a.getcontainerPanel_2());
