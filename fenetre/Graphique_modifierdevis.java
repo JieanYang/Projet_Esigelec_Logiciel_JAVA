@@ -70,18 +70,7 @@ import models.Client;
 			retour.addActionListener(this);
 
 			textFieldid = new JTextField();
-			textFieldnom = new JTextField();
-			textField1 = new JTextField();
-			textField2 = new JTextField();
-			textField3 = new JTextField();
-			textFieldcategorie = new JTextField();
-
-			labeldate = new JLabel("date :");
-			labelnom = new JLabel("nom:");
-			labelcategorie = new JLabel("categorie :");
-			label1 = new JLabel("categorie1 :");
-			label2 = new JLabel("categorie 2:");
-			label3 = new JLabel("categorie 3:");
+			
 			
 			
 			this.add(retour);

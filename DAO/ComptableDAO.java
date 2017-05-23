@@ -60,9 +60,10 @@ import models.Comptable;
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"INSERT INTO COMPTABLE_CPT (STT_ID,STT_NOM) VALUES (?, ?)");
+						"INSERT INTO COMPTABLE_CPT (CPT_ID,CPT_NOM,CPT_MDP) VALUES (?, ?,?)");
 				ps.setInt(1, comptable.getIdentifiant());
 				ps.setString(2, comptable.getNom());
+				ps.setString(3, comptable.getMdp());
 			
 
 				// Exécution de la requête
@@ -109,7 +110,7 @@ import models.Comptable;
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"DELETE FROM COMPTABLE_CPT WHERE(STT_ID)");
+						"DELETE FROM COMPTABLE_CPT WHERE(CPT_ID)");
 				ps.setInt(1, comptable.getIdentifiant());
 
 				// Exécution de la requête
@@ -154,7 +155,7 @@ import models.Comptable;
 			try {
 
 				con = DriverManager.getConnection(URL, LOGIN, PASS);
-				ps = con.prepareStatement("SELECT * FROM COMPTABLE_CPT WHERE STT_ID = ?");
+				ps = con.prepareStatement("SELECT * FROM COMPTABLE_CPT WHERE CPT_ID = ?");
 				ps.setInt(1, id);
 
 				// on exécute la requête
