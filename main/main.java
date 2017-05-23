@@ -13,7 +13,7 @@ import models.Facture;
 public class main {
 
 	public static void main(String[] args) {
-		Graphique ap = new Graphique();
+		//Graphique ap = new Graphique();
 		//Graphiquemaintenance apy = new Graphiquemaintenance();
 		//Graphiquemaintenance a = new Graphiquemaintenance(); 
 		//Yang_GraphiqueCreateFacture a = new Yang_GraphiqueCreateFacture();
@@ -24,7 +24,7 @@ public class main {
 		//System.out.println(ep.getId());
 		//System.out.println(ke.getId_Facture());
 		//graphique_saisirclient aap = new graphique_saisirclient();
-		//Main aeie = new Main();
+		Appli aeie = new Appli();
 	}
 
 }

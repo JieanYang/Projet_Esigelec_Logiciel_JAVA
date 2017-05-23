@@ -73,11 +73,13 @@ public class Appli extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		int retour1;
 		if (ae.getSource() == yes_authentifier) {
-			Graphique ae = new Graphique();
+			Graphique ap = new Graphique();
+			this.dispose();
 
 
 		}
-		if (ae.getSource() == no) {
+		if (ae.getSource() == no_authentifier) {
+			this.dispose();
 
 		}
 		

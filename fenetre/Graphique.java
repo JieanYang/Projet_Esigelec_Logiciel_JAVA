@@ -119,17 +119,7 @@ public class Graphique extends JFrame implements ActionListener {
 		// ajout des composants sur le container
 		// introduire une espace constant entre le champ texte et le composant
 		// suivant
-		boutonvalidation.setBounds(175, 22, 150, 300);
-		boutonsaisirclient.setBounds(175, 74, 150, 300);
-		boutonsaisirmaintenance.setBounds(175, 126, 150, 300);
-		boutonsaisiroperateur.setBounds(175, 178, 150, 300);
-		boutonmodifierdevis.setBounds(175, 230, 150, 300);
-		boutonaffecteroperateur.setBounds(175, 282, 150, 300);
-		boutonmodifierfiche.setBounds(175, 334, 150, 300);
-		boutonfacturation.setBounds(150, 386, 200, 300);
-		boutonsuivireglement.setBounds(175, 438, 150, 300);
-		boutoncloturedossier.setBounds(175, 490, 150, 300);
-		boutoneditionrapport.setBounds(125, 542, 250, 300);
+		
 
 		containerPanel.add(boutonvalidation);
 		containerPanel.add(boutonsaisirclient);

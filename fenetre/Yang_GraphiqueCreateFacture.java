@@ -56,9 +56,9 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 	
 	private JLabel id_D_label_3;
 	private JLabel nomdevis_D_label_3;
-	private JLabel client_D_label_3;
+	private JLabel id_C_label_3;
 	private JLabel categorie_D_label_3;
-	private JLabel nomclient_D_label_3;
+	//private JLabel nomclient_D_label_3;
 	private JLabel date_D_label_3;
 	private JLabel id_F_label_3;
 	private JLabel modepaiement_F_label_3;
@@ -67,7 +67,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 	
 	private JTextField id_D_3;
 	private JTextField nomdevis_D_3;
-	private JTextField client_D_3;
+	private JTextField id_C_3;
 	private JTextField categorie_D_3;
 	private JTextField nomclient_D_3;
 	private JTextField date_D_3;
@@ -82,7 +82,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 	
 	public Yang_GraphiqueCreateFacture(){
 		this.setTitle(title_1);
-		//this.setTitle(title_2);���޸ı���
+		//this.setTitle(title_2);
 		
 		this.setSize(500, 630);
 		this.setLocationRelativeTo(null);
@@ -168,9 +168,9 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 			
 			id_D_label_3 = new JLabel("id de Devis");
 			nomdevis_D_label_3 = new JLabel("nomdevis de Devis");
-			client_D_label_3 = new JLabel("client de Devis");
+			id_C_label_3 = new JLabel("id de Client");
 			categorie_D_label_3 = new JLabel("categorie de Devis");
-			nomclient_D_label_3 = new JLabel("nomClient de Devis");
+			//nomclient_D_label_3 = new JLabel("nomClient de Devis");
 			date_D_label_3 = new JLabel("date de Devis");
 			id_F_label_3 = new JLabel("id de facture");
 			modepaiement_F_label_3 = new JLabel("mode de paiement de facture");
@@ -179,7 +179,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 			
 			id_D_3 = new JTextField();
 			nomdevis_D_3 = new JTextField();
-			client_D_3 = new JTextField();
+			id_C_3 = new JTextField();
 			categorie_D_3 = new JTextField();
 			nomclient_D_3 = new JTextField();
 			date_D_3 = new JTextField();
@@ -196,9 +196,9 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 
 			id_D_label_3.setBounds(20, 10, 150, 30);
 			nomdevis_D_label_3.setBounds(20, 50, 150, 30);
-			client_D_label_3.setBounds(20, 90, 150, 30);
+			id_C_label_3.setBounds(20, 90, 150, 30);
 			categorie_D_label_3.setBounds(20, 130, 150, 30);
-			nomclient_D_label_3.setBounds(20, 170, 150, 30);
+			//nomclient_D_label_3.setBounds(20, 170, 150, 30);
 			date_D_label_3.setBounds(20, 210, 150, 30);
 			
 			id_F_label_3.setBounds(20, 250, 150, 30);
@@ -208,7 +208,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 
 			id_D_3.setBounds(220, 10, 150, 30);
 			nomdevis_D_3.setBounds(220, 50, 150, 30);
-			client_D_3.setBounds(220, 90, 150, 30);
+			id_C_3.setBounds(220, 90, 150, 30);
 			categorie_D_3.setBounds(220, 130, 150, 30);
 			nomclient_D_3.setBounds(220, 170, 150, 30);
 			date_D_3.setBounds(220, 210, 150, 30);
@@ -222,9 +222,9 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 
 			CreateFactureByTypeInfo_3.add(id_D_label_3);
 			CreateFactureByTypeInfo_3.add(nomdevis_D_label_3);
-			CreateFactureByTypeInfo_3.add(client_D_label_3);
+			CreateFactureByTypeInfo_3.add(id_C_label_3);
 			CreateFactureByTypeInfo_3.add(categorie_D_label_3);
-			CreateFactureByTypeInfo_3.add(nomclient_D_label_3);
+			//CreateFactureByTypeInfo_3.add(nomclient_D_label_3);
 			CreateFactureByTypeInfo_3.add(date_D_label_3);
 			CreateFactureByTypeInfo_3.add(id_F_label_3);
 			CreateFactureByTypeInfo_3.add(modepaiement_F_label_3);
@@ -233,7 +233,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 			
 			CreateFactureByTypeInfo_3.add(id_D_3);
 			CreateFactureByTypeInfo_3.add(nomdevis_D_3);
-			CreateFactureByTypeInfo_3.add(client_D_3);
+			CreateFactureByTypeInfo_3.add(id_C_3);
 			CreateFactureByTypeInfo_3.add(categorie_D_3);
 			//CreateFactureByTypeInfo_3.add(nomclient_D_3);
 			CreateFactureByTypeInfo_3.add(date_D_3);
@@ -283,11 +283,13 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 	public void actionPerformed(ActionEvent arg0) {
 		
 		int retour;
-		FactureDB cao_F = new FactureDB();
-		DevisDAO cao_D = new DevisDAO();
+		
 		ClientDAO cao_C = new ClientDAO();
+		DevisDAO cao_D = new DevisDAO();
+		FactureDB cao_F = new FactureDB();
+		
+		Client c ;
 		Devis d =new Devis();
-		//Facture f_old = new Facture();
 		Facture f = new Facture();
 		
 		
@@ -320,6 +322,7 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 		//click button creer in page CreateFactureByDevis
 			if (arg0.getSource() == CreateConfirm_2){
 				retour = 0;
+				
 				d = cao_D.getDevis(Integer.parseInt(this.IdDevis_2.getText()));
 				f = new Facture(d, d.getId(), this.ModePaiement_2.getText(),Integer.parseInt(this.Num_2.getText()),this.Date_2.getText());
 				retour = cao_F.ajouter(f);
@@ -341,10 +344,26 @@ public class Yang_GraphiqueCreateFacture extends JFrame implements ActionListene
 			//yes
 			if (arg0.getSource() == yes_3){
 				retour = 0;
-				Client client = ClientDAO.getClient(Integer.parseInt(this.client_D_3.getText()));
-				d = new Devis(Integer.parseInt(this.id_D_3.getText()),this.nomdevis_D_3.getText(),client,this.categorie_D_3.getText(),this.date_D_3.getText());
+				//Integer.parseInt(this.client_D_3.getText());
 				
-			} 
+				//c = new Client(1,"yang", 000,000,"rouen");
+				c = cao_C.getClient(Integer.parseInt(this.id_C_3.getText()));
+				d = new Devis(Integer.parseInt(this.id_D_3.getText()),this.nomdevis_D_3.getText(),c,this.categorie_D_3.getText(),this.date_D_3.getText());
+				//d = cao_D.getDevis(id);
+						
+				f = new Facture(d, Integer.parseInt(this.id_F_3.getText()),this.modepaiement_F_3.getText(),Integer.parseInt(this.num_F_3.getText()),this.date_F_3.getText());
+
+				cao_C.ajouter(c);
+				cao_D.ajouter(d);
+				retour = cao_F.ajouter(f);
+				 if (retour ==1){
+					 JOptionPane.showMessageDialog(this, "Facture ajouter !");
+				 }
+				 else{
+						JOptionPane.showMessageDialog(this, "erreur ajout Facture", "Erreur", JOptionPane.ERROR_MESSAGE);
+				 }
+				}
+			
 			//return
 			if (arg0.getSource() == no_3){
 				Yang_GraphiqueCreateFacture a = new Yang_GraphiqueCreateFacture();

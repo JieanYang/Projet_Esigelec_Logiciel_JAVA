@@ -183,27 +183,27 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 	}
 
 	//set label in container_2
-	public void setId_D_Label_2(String l){
-		this.id_D_label_2.setText(l);
+	public void setId_D_Label_content_2(String l){
+		this.id_D_label_content_2.setText(l);
 	}
-	public void setNomdevis_D_label_2(String l){
-		this.nomdevis_D_label_2.setText(l);
-	}public void setClient_D_label_2(String l){
-		this.client_D_label_2.setText(l);
-	}public void setCategorie_D_label_2(String l){
-		this.categorie_D_label_2.setText(l);
-	}public void setNomclient_D_label_2(String l){
-		this.nomclient_D_label_2.setText(l);
-	}public void setDate_D_label_2(String l){
-		this.date_D_label_2.setText(l);
-	}public void setId_F_label_2(String l){
-		this.id_F_label_2.setText(l);
-	}public void setModepaiement_F_label_2(String l){
-		this.modepaiement_F_label_2.setText(l);
-	}public void setNum_F_label_2(String l){
-		this.num_F_label_2.setText(l);
-	}public void setDate_F_label_2(String l){
-		this.date_F_label_2.setText(l);
+	public void setNomdevis_D_label_content_2(String l){
+		this.nomdevis_D_label_content_2.setText(l);
+	}public void setClient_D_label_content_2(String l){
+		this.client_D_label_content_2.setText(l);
+	}public void setCategorie_D_label_content_2(String l){
+		this.categorie_D_label_content_2.setText(l);
+	}public void setNomclient_D_label_content_2(String l){
+		this.nomclient_D_label_content_2.setText(l);
+	}public void setDate_D_label_content_2(String l){
+		this.date_D_label_content_2.setText(l);
+	}public void setId_F_label_content_2(String l){
+		this.id_F_label_content_2.setText(l);
+	}public void setModepaiement_F_label_content_2(String l){
+		this.modepaiement_F_label_content_2.setText(l);
+	}public void setNum_F_label_content_2(String l){
+		this.num_F_label_content_2.setText(l);
+	}public void setDate_F_label_content_2(String l){
+		this.date_F_label_content_2.setText(l);
 	}
 		
 		
@@ -231,7 +231,7 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 		Facture f = new Facture();
 		
 	//1.demand id of facture
-		//button yes_1 ����û��� nofini 
+		//button yes_1  nofini 
 		//
 		if (arg0.getSource() == yes_1){
 			
@@ -241,27 +241,30 @@ public class Yang_GraphiqueAfficherFacture extends JFrame implements ActionListe
 			
 			if(f != null){
 				
-				id_D_label_2 = new JLabel("id de Devis"+Integer.toString(f.getId()));
-				nomdevis_D_label_2 = new JLabel("nomdevis de Devis"+f.getNomdevis());
-				client_D_label_2 = new JLabel("client de Devis"+Integer.toString(f.getClient().getId()));
-				categorie_D_label_2 = new JLabel("categorie de Devis"+f.getCategorie());
-				nomclient_D_label_2 = new JLabel("nomClient de Devis"+f.getClient().getNom());
-				date_D_label_2 = new JLabel("date de Devis"+f.getDate());
-				id_F_label_2 = new JLabel("id de facture"+Integer.toString(f.getId_Facture()));
-				modepaiement_F_label_2 = new JLabel("mode de paiement de facture"+f.getModepaiement_Facture());
-				num_F_label_2 = new JLabel("num de facture"+Integer.toString(f.getNum_Facture()));
-				date_F_label_2 = new JLabel("date de facture"+f.getDate_Facture());
+				id_D_label_content_2 = new JLabel("id de Devis"+Integer.toString(f.getId()));
+				nomdevis_D_label_content_2 = new JLabel("nomdevis de Devis"+f.getNomdevis());
+				client_D_label_content_2 = new JLabel("client de Devis"+Integer.toString(f.getClient().getId()));
+				categorie_D_label_content_2 = new JLabel("categorie de Devis"+f.getCategorie());
+				nomclient_D_label_content_2 = new JLabel("nomClient de Devis"+f.getClient().getNom());
+				date_D_label_content_2 = new JLabel("date de Devis"+f.getDate());
+				id_F_label_content_2 = new JLabel("id de facture"+Integer.toString(f.getId_Facture()));
+				modepaiement_F_label_content_2 = new JLabel("mode de paiement de facture"+f.getModepaiement_Facture());
+				num_F_label_content_2 = new JLabel("num de facture"+Integer.toString(f.getNum_Facture()));
+				date_F_label_content_2 = new JLabel("date de facture"+f.getDate_Facture());
 				
 				
 				
-			}else{
+			/*}else{
 				JOptionPane.showMessageDialog(this, "erreur chercher Facture", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}*/
 			
 			
-			
 			//il must verify the existance of facture
 			Yang_GraphiqueAfficherFacture a = new Yang_GraphiqueAfficherFacture();
+			
+			a.setId_D_Label_content_2(Integer.toString(f.getId()));
+			a.setNomdevis_D_label_content_2(f.getNomdevis());
+			
 			a.setContentPane(a.getcontainerPanel_2());
 			a.setTitle(title_2);
 			this.dispose();
