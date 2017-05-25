@@ -21,24 +21,25 @@ import models.Fichemaintenance;
 		private Graphique mainApp;
 		
 		/**
-		 * bouton de selection
+		 * bouton d'affectation d'un operateur
 		 */
 		private JButton affecteroperateur;
-
+		/**
+		 * bouton de retour au menu
+		 */
 		private JButton retour;
 		/**
-		 * zone de texte pour le champ nom du client
+		 * zone de texte pour le champ id fiche de maintenance
 		 */
 		private JTextField textFieldmaintenance;
 
 		/**
-		 * zone de texte pour le champ date
+		 * zone de texte pour le champ operateur
 		 */
 		private JTextField textFieldoperateur;
 
 
 		private JLabel labelmaintenance;
-
 		private JLabel labeloperateur;
 
 		private OperateurDAO OperateurDAO;
@@ -54,10 +55,7 @@ import models.Fichemaintenance;
 			this.OperateurDAO = new OperateurDAO();
 			this.fichemaintenceDAO = new FichemaintenanceDAO();
 
-			// on fixe le titre de la fenêtre
-			this.setName("affecter un operateur");
 			
-
 			// choix du Layout pour ce conteneur
 			// il permet de gérer la position des éléments
 			// il autorisera un retaillage de la fenêtre en conservant la

@@ -27,25 +27,22 @@ public class Graphique_saisiroperateur extends JPanel implements ActionListener 
 
 	private JButton retour;
 	/**
-	 * zone de texte pour le champ nom du client
+	 * zone de texte pour le champ id de l'operateur
 	 */
 	private JTextField textFielid;
+	private JLabel labelid;
 
 	/**
-	 * zone de texte pour le champ date
+	 * zone de texte pour le champ nom
 	 */
 	private JTextField textFieldnom;
+	private JLabel labeldnom;
 
 	/**
-	 * zone de texte pour la categorie
+	 * zone de texte pour le champs Mdp
 	 * 
 	 */
 	private JTextField textFieldmdp;
-
-	private JLabel labelid;
-
-	private JLabel labeldnom;
-
 	private JLabel labelmdp;
 
 	private OperateurDAO operateurDAO;
@@ -80,7 +77,7 @@ public class Graphique_saisiroperateur extends JPanel implements ActionListener 
 
 		retour = new JButton("retour");
 		retour.addActionListener(this);
-		
+
 		labelid = new JLabel("id :");
 		textFielid = new JTextField();
 		labeldnom = new JLabel("nom:");
@@ -90,13 +87,13 @@ public class Graphique_saisiroperateur extends JPanel implements ActionListener 
 
 		this.add(labelid);
 		this.add(textFielid);
-		
+
 		this.add(labeldnom);
 		this.add(textFieldnom);
-		
+
 		this.add(labelmdp);
 		this.add(textFieldmdp);
-		
+
 		this.add(creeroperateur);
 		this.add(retour);
 	}
@@ -113,9 +110,9 @@ public class Graphique_saisiroperateur extends JPanel implements ActionListener 
 			// dans la bdd pour vérification
 			System.out.println("" + retour + " ligne ajoutée ");
 			if (retour1 == 1)
-				JOptionPane.showMessageDialog(this, "Client ajouter !");
+				JOptionPane.showMessageDialog(this, "Operateur ajouter !");
 			else
-				JOptionPane.showMessageDialog(this, "erreur ajout Client", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "erreur ajout Operateur", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 		if (ae.getSource() == retour) {
 			this.mainApp.switchPanel();

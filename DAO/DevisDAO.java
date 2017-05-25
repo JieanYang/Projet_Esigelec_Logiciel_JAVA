@@ -20,8 +20,8 @@ public class DevisDAO {
 		 * sont des constantes
 		 */
 		final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-		final static String LOGIN = "BDD7"; // exemple BDD1
-		final static String PASS = "BDD7"; // exemple BDD1
+		final static String LOGIN = "Diesnis"; // exemple BDD1
+		final static String PASS = "BDD1"; // exemple BDD1
 
 		/**
 		 * Constructeur de la classe
@@ -38,7 +38,10 @@ public class DevisDAO {
 
 		}
 
-		
+		/**
+		 * permet de creer un devis de maniere automatique 
+		 * @return devis generer automatique
+		 */
 		public static Devis creerdevis() {
 			Connection con = null;
 			PreparedStatement ps = null;
@@ -86,6 +89,54 @@ public class DevisDAO {
 				}
 			}
 			return d;
+
+		}
+		/**
+		 * permet d'update un devis 
+		 * 
+		 */
+		public int update(Devis devis) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			int retour = 0;
+
+			// connexion à la base de données
+			try {
+
+				// tentative de connexion
+				con = DriverManager.getConnection(URL, LOGIN, PASS);
+				// préparation de l'instruction SQL, chaque ? représente une valeur
+				// à communiquer dans l'insertion
+				// les getters permettent de récupérer les valeurs des attributs
+				// souhaités
+				ps = con.prepareStatement(
+						"UPDATE FROM DEVIS_DVI SET DVI_NOM= ?, DVI_CLIENT_ID= ?, DVI_CATEGORIE= ?, DVI_DATE= ? WHERE DVI_ID = ?)");
+				ps.setString(1, devis.getNomdevis());
+				ps.setInt(2, devis.getClient().getId());
+				ps.setString(3, devis.getCategorie());
+				ps.setString(4, devis.getDate());
+				ps.setInt(5, devis.getId());
+			
+
+				// Exécution de la requête
+				retour = ps.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// fermeture du preparedStatement et de la connexion
+				try {
+					if (ps != null)
+						ps.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if (con != null)
+						con.close();
+				} catch (Exception ignore) {
+				}
+			}
+			return retour;
 
 		}
 		/**

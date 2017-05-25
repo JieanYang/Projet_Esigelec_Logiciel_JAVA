@@ -195,7 +195,12 @@ public class FichemaintenanceDAO {
 		return retour;
 
 	}
-
+/**
+ * methode d'affectation d'un operateur a une fiche de maintenance
+ * @param id
+ * @param operateur
+ * @return void
+ */
 	public static Fichemaintenance affecteroperateur(int id, int operateur) {
 
 		Connection con = null;
@@ -210,6 +215,54 @@ public class FichemaintenanceDAO {
 			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA SET Operateur_FMA = ? WHERE FMA_ID = ?");
 			ps.setInt(1, operateur);
 			ps.setInt(2, id);
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+	/**
+	 * 
+	 * @param id
+	 * @param fiche de maintenance
+	 * @return le nombre de ligne update de la base de donnee
+	 */
+	
+	public static Fichemaintenance update(Fichemaintenance fichemaintenance) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Fichemaintenance retour = null;
+
+		// connexion à la base de données
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA SET FMA_CLIENT = ?,FMA_CATEGORIE=? FMA_COMMENTAIRE=? WHERE FMA_ID = ?");
+			ps.setInt(1, fichemaintenance.getClient().getId());
+			ps.setString(2, fichemaintenance.getCategorie());
+			ps.setString(3, fichemaintenance.getCommentaire());
+			ps.setInt(4, fichemaintenance.getId());
+			
 
 		} catch (Exception ee) {
 			ee.printStackTrace();

@@ -36,20 +36,17 @@ public class Graphique_saisirmaintenance extends JPanel implements ActionListene
 	 * zone de texte pour le champ id fiche
 	 */
 	private JTextField textFieldid;
+	private JLabel labelid;
 	/**
 	 * zone de texte pour le champ id client
 	 */
 	private JTextField textFieldclient;
+	private JLabel labelclient;
 	/**
 	 * zone de texte pour la categorie
 	 * 
 	 */
 	private JTextField textFieldcategorie;
-
-	private JLabel labelid;
-
-	private JLabel labelclient;
-
 	private JLabel labelcategorie;
 
 	private FichemaintenanceDAO Fiche;
@@ -99,7 +96,7 @@ public class Graphique_saisirmaintenance extends JPanel implements ActionListene
 	public void actionPerformed(ActionEvent ae) {
 		int retour1;
 		if (ae.getSource() == creerdemande) {
-			Client client = ClientDAO.getClient(Integer.parseInt(this.textFieldclient.getText()));	
+			Client client = ClientDAO.getClient(Integer.parseInt(this.textFieldclient.getText()));
 			Devis devis = DevisDAO.creerdevis();
 			Fichemaintenance a = new Fichemaintenance(Integer.parseInt(this.textFieldid.getText()), client, devis,
 					this.textFieldcategorie.getText());
@@ -110,9 +107,9 @@ public class Graphique_saisirmaintenance extends JPanel implements ActionListene
 			// dans la bdd pour vérification
 			System.out.println("" + retour + " ligne ajoutée ");
 			if (retour1 == 1)
-				JOptionPane.showMessageDialog(this, "Client ajouter !");
+				JOptionPane.showMessageDialog(this, "maintenance  ajouter !");
 			else
-				JOptionPane.showMessageDialog(this, "erreur ajout Client", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "erreur ajout maintenance", "Erreur", JOptionPane.ERROR_MESSAGE);
 
 		}
 

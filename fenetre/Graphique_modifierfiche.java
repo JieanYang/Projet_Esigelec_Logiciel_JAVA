@@ -1,143 +1,180 @@
 package fenetre;
-	import java.awt.Color;
+
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-	import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-	import javax.swing.JLabel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-	import javax.swing.JTextField;
+import javax.swing.JTextField;
 
-	import DAO.ClientDAO;
+import DAO.ClientDAO;
+import DAO.DevisDAO;
 import DAO.OperateurDAO;
 import DAO.FichemaintenanceDAO;
 import models.Client;
+import models.Devis;
+import models.Fichemaintenance;
 
-	public class Graphique_modifierfiche extends JPanel implements ActionListener {
-		private Graphique mainApp;
-		
-		/**
-		 * bouton de selection
-		 */
-		private JButton modifierfiche;
+public class Graphique_modifierfiche extends JPanel implements ActionListener {
+	private Graphique mainApp;
 
-		private JButton retour;
-		/**
-		 * zone de texte pour le champ nom du client
-		 */
-		private JTextField textFieldnom;
+	/**
+	 * bouton de selection d'une fiche
+	 * 
+	 */
+	private JButton choixfiche;
+	/**
+	 * bouton pour update une fiche sur la bdd
+	 * 
+	 */
+	private JButton modifierfiche;
 
-		/**
-		 * zone de texte pour le champ date
-		 */
-		private JTextField textFielddate;
+	/**
+	 * bouton de retour au menu principal
+	 * 
+	 */
+	private JButton retour;
 
-		/**
-		 * zone de texte pour la categorie
-		 * 
-		 */
-		private JTextField textFieldcategorie;
-		private JTextField textField1;
-		private JTextField textField2;
-		private JTextField textField3;
+	/**
+	 * zone de texte pour l'id de la fiche de maintenance
+	 */
+	private JTextField textFieldid;
+	private JLabel labelid;
+	/**
+	 * zone de texte pour l'id du client
+	 */
+	private JTextField textFieldclient;
+	private JLabel labelclient;
+	/**
+	 * zone de texte pour l'id du devis
+	 * 
+	 */
+	private JTextField textFielddevis;
+	private JLabel labeldevis;
+	/**
+	 * zone de texte pour la categorie
+	 * 
+	 */
+	private JTextField textFieldcategorie;
+	private JLabel labelcategorie;
+	/**
+	 * zone de texte pour l'id de l'operateur
+	 * 
+	 */
+	private JTextField textFieldoperateur;
+	private JLabel labeloperateur;
+	/**
+	 * zone de texte pour le commentaire
+	 * 
+	 */
+	private JTextField textFieldcommentaire;
+	private JLabel labelcommentaire;
 
-		private JLabel labelnom;
+	private OperateurDAO OperateurDAO;
+	private ClientDAO ClientDAO;
+	private FichemaintenanceDAO FichemaintenanceDAO;
 
-		private JLabel labeldate;
+	/**
+	 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
+	 */
+	public Graphique_modifierfiche(Graphique main) {
+		this.mainApp = main;
 
-		private JLabel labelcategorie;
-		private JLabel label1;
-		private JLabel label2;
-		private JLabel label3;
-		private OperateurDAO OperateurDAO;
-		private ClientDAO ClientDAO;
-		private FichemaintenanceDAO FichemaintenanceDAO;
+		// on instancie la classe Client DAO et operateur
+		this.OperateurDAO = new OperateurDAO();
+		this.ClientDAO = new ClientDAO();
+		this.FichemaintenanceDAO = new FichemaintenanceDAO();
 
-		/**
-		 * Constructeur Définit la fenêtre et ses composants - affiche la fenêtre
-		 */
-		public Graphique_modifierfiche(Graphique main) {
-			this.mainApp = main;
-			
-			// on instancie la classe Client DAO et operateur
-			this.OperateurDAO = new OperateurDAO();
-			this.ClientDAO = new ClientDAO();
-			this.FichemaintenanceDAO = new FichemaintenanceDAO();
-			
+		// choix du Layout pour ce conteneur
+		// il permet de gérer la position des éléments
+		// il autorisera un retaillage de la fenêtre en conservant la
+		// présentation
+		// BoxLayout permet par exemple de positionner les élements sur une
+		// colonne ( PAGE_AXIS )
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-			// on fixe le titre de la fenêtre
-			this.setName("modifier la fiche");
-			
+		// choix de la couleur pour le conteneur
+		this.setBackground(Color.lightGray);
 
-			// choix du Layout pour ce conteneur
-			// il permet de gérer la position des éléments
-			// il autorisera un retaillage de la fenêtre en conservant la
-			// présentation
-			// BoxLayout permet par exemple de positionner les élements sur une
-			// colonne ( PAGE_AXIS )
-			this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		// instantiation des composants graphiques
 
-			// choix de la couleur pour le conteneur
-			this.setBackground(Color.lightGray);
+		modifierfiche = new JButton("modifier");
+		modifierfiche.addActionListener(this);
 
-			// instantiation des composants graphiques
+		choixfiche = new JButton("choix fiche");
+		choixfiche.addActionListener(this);
 
-			modifierfiche = new JButton("modifier");
-			modifierfiche.addActionListener(this);
+		retour = new JButton("retour");
+		retour.addActionListener(this);
 
-			retour = new JButton("retour");
-			retour.addActionListener(this);
+		textFieldid = new JTextField();
+		textFieldclient = new JTextField();
+		textFieldcategorie = new JTextField();
+		textFielddevis = new JTextField();
+		textFieldcommentaire = new JTextField();
 
-			textFielddate = new JTextField();
-			textFieldnom = new JTextField();
-			textField1 = new JTextField();
-			textField2 = new JTextField();
-			textField3 = new JTextField();
-			textFieldcategorie = new JTextField();
+		labelid = new JLabel("id de la fiche a modifier :");
+		labelclient = new JLabel("id du client:");
+		labelcategorie = new JLabel("categorie :");
+		labeldevis = new JLabel("id du devis :");
+		labelcommentaire = new JLabel("commentaire:");
 
-			labeldate = new JLabel("date :");
-			labelnom = new JLabel("nom:");
-			labelcategorie = new JLabel("categorie :");
-			label1 = new JLabel("categorie1 :");
-			label2 = new JLabel("categorie 2:");
-			label3 = new JLabel("categorie 3:");
-			
-			// ajout des composants sur le container
-			// introduire une espace constant entre le champ texte et le composant
-			// suivant
-			labelnom.setBounds(20, 10, 150, 30);
-			textFieldnom.setBounds(20, 20, 460, 50);
-			label1.setBounds(20, 500, 150, 30);
-			textField1.setBounds(20, 550, 460, 50);
-			label2.setBounds(20, 600, 150, 30);
-			textField2.setBounds(20, 650, 460, 50);
-			label3.setBounds(20, 750, 150, 30);
-			textField3.setBounds(20, 800, 460, 50);
-			labeldate.setBounds(20, 110, 150, 30);
-			textFielddate.setBounds(20, 150, 460, 50);
-			labelcategorie.setBounds(20, 210, 150, 30);
-			textFieldcategorie.setBounds(20, 250, 460, 50);
-			modifierfiche.setBounds(20, 330, 150, 30);
-			retour.setBounds(180, 330, 150, 30);
-			
-			this.add(retour);
+		// ajout des composants sur le container
+		// introduire une espace constant entre le champ texte et le composant
+		// suivant
+
+		this.add(labelid);
+		this.add(textFieldid);
+		this.add(choixfiche);
+
+		this.add(labelclient);
+		this.add(textFieldclient);
+		this.add(labeldevis);
+		this.add(textFielddevis);
+		this.add(labelcategorie);
+		this.add(textFieldcategorie);
+		this.add(labelcommentaire);
+		this.add(textFieldcommentaire);
+		this.add(modifierfiche);
+
+		this.add(retour);
+	}
+
+	public void actionPerformed(ActionEvent ae) {
+		int retour1;
+		if (ae.getSource() == choixfiche) {
+
+		}
+		if (ae.getSource() == modifierfiche) {
+			Fichemaintenance retour2;
+			Client client = ClientDAO.getClient(Integer.parseInt(this.textFieldclient.getText()));
+			Devis devis = FichemaintenanceDAO.getFichemaintenance(Integer.parseInt(this.textFieldid.getText()))
+					.getDevis();
+			Fichemaintenance a = new Fichemaintenance(Integer.parseInt(this.textFieldid.getText()), client, devis,
+					this.textFieldcategorie.getText(), this.textFieldcommentaire.getText());
+			// on demande à la classe de communication d'envoyer l'Station
+			// dans la table Station
+			retour2 = FichemaintenanceDAO.update(a);
+			// affichage du nombre de lignes ajoutées
+			// dans la bdd pour vérification
+			System.out.println("" + retour + " ligne ajoutée ");
+			if (retour2 != null)
+				JOptionPane.showMessageDialog(this, "Fiche update !");
+			else
+				JOptionPane.showMessageDialog(this, "erreur update fiche", "Erreur", JOptionPane.ERROR_MESSAGE);
+
 		}
 
-		public void actionPerformed(ActionEvent ae) {
-			int retour1;
-			if (ae.getSource() == modifierfiche) {
-				
-			}
-			if (ae.getSource() == retour) {
-				this.mainApp.switchPanel();
-		
-
-			}
+		if (ae.getSource() == retour) {
+			this.mainApp.switchPanel();
 
 		}
 
 	}
 
+}

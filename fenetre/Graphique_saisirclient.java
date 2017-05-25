@@ -32,33 +32,33 @@ public class Graphique_saisirclient extends JPanel implements ActionListener {
 	 * zone de texte pour le champ l'id du client
 	 */
 	private JTextField textFieldid;
+	private JLabel labelid;
 
 	/**
 	 * zone de texte pour le champ nom
 	 */
 	private JTextField textFieldnom;
+	private JLabel labelnom;
 
 	/**
 	 * zone de texte pour le siret
 	 * 
 	 */
 	private JTextField textFieldsiret;
+	private JLabel labelsiret;
 	/**
 	 * zone de texte pour le codeape
 	 * 
 	 */
 	private JTextField textFieldcodeape;
+	private JLabel labelcodeape;
 	/**
 	 * zone de texte pour l' adresse
 	 * 
 	 */
 	private JTextField textFieldadresse;
-
-	private JLabel labelid;
-	private JLabel labelnom;
-	private JLabel labelsiret;
-	private JLabel labelcodeape;
 	private JLabel labeladresse;
+
 	private ClientDAO clientDAO;
 
 	/**
@@ -121,7 +121,7 @@ public class Graphique_saisirclient extends JPanel implements ActionListener {
 		this.add(textFieldadresse);
 
 		this.add(creerclient);
-		
+
 		this.add(retour);
 
 	}

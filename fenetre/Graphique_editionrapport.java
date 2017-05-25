@@ -26,9 +26,12 @@ import models.Rapportactivite;
 public class Graphique_editionrapport extends JPanel implements ActionListener {
 	private Graphique mainApp;
 	/**
-	 * bouton de selection
+	 * bouton creation rapport
 	 */
 	private JButton creerrapport;
+	/**
+	 * bouton retour menu
+	 */
 
 	private JButton retour;
 	/**
@@ -145,9 +148,9 @@ public class Graphique_editionrapport extends JPanel implements ActionListener {
 			// dans la bdd pour vérification
 			System.out.println("" + retour + " ligne ajoutée ");
 			if (retour1 == 1)
-				JOptionPane.showMessageDialog(this, "Client ajouter !");
+				JOptionPane.showMessageDialog(this, "Rapport ajouter !");
 			else
-				JOptionPane.showMessageDialog(this, "erreur ajout Client", "Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "erreur ajout Rapport", "Erreur", JOptionPane.ERROR_MESSAGE);
 
 		}
 		if (ae.getSource() == retour) {

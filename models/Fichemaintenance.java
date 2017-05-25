@@ -6,13 +6,40 @@ public class Fichemaintenance {
 	private Devis devis;
 	private String categorie;
 	private Operateur operateur;
+	private String commentaire;
 
 	public Fichemaintenance(int id, Client client, Devis devis, String categorie) {
 		this.id = id;
 		this.client = client;
 		this.devis = devis;
 		this.categorie = categorie;
+		this.commentaire = null;
 		this.operateur = null;
+	}
+
+	public Fichemaintenance(int id, Client client, Devis devis, String categorie, String commentaire) {
+		this.id = id;
+		this.client = client;
+		this.devis = devis;
+		this.categorie = categorie;
+		this.commentaire = commentaire;
+		this.operateur = null;
+	}
+
+	public Operateur getOperateur() {
+		return operateur;
+	}
+
+	public void setOperateur(Operateur operateur) {
+		this.operateur = operateur;
+	}
+
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
 	}
 
 	public int getId() {
