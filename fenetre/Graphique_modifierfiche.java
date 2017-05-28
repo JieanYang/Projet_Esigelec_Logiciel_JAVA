@@ -146,15 +146,18 @@ public class Graphique_modifierfiche extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-
+		int retour1;
 		if (ae.getSource() == choixfiche) {
-
 			Fichemaintenance retour;
-			retour=FichemaintenanceDAO.getFichemaintenance(Integer.parseInt(this.textFieldid.getText()));
-			labelclient.setText("id du client de la bdd=		"+ Integer.toString(retour.getClient().getId()));
-			labeldevis.setText("id du devis de la bdd=		"+Integer.toString(retour.getDevis().getId()));
-			labelcategorie.setText("categorie=		"+retour.getCategorie());
-			labelcommentaire.setText("commentaire de la bdd=		"+retour.getCommentaire());
+			retour = FichemaintenanceDAO.getFichemaintenance(Integer.parseInt(this.textFieldid.getText()));
+			labelclient.setText("id du client de la bdd=		" + Integer.toString(FichemaintenanceDAO
+					.getFichemaintenance(Integer.parseInt(this.textFieldid.getText())).getClient().getId()));
+			labeldevis.setText("id du devis de la bdd=		" + Integer.toString(FichemaintenanceDAO
+					.getFichemaintenance(Integer.parseInt(this.textFieldid.getText())).getDevis().getId()));
+			labelcategorie.setText("categorie=		" + FichemaintenanceDAO
+					.getFichemaintenance(Integer.parseInt(this.textFieldid.getText())).getCategorie());
+			labelcommentaire.setText("commentaire de la bdd=		" + FichemaintenanceDAO
+					.getFichemaintenance(Integer.parseInt(this.textFieldid.getText())).getCommentaire());
 			if (retour != null)
 				JOptionPane.showMessageDialog(this, "Fiche choisie !");
 			else
@@ -162,19 +165,18 @@ public class Graphique_modifierfiche extends JPanel implements ActionListener {
 
 		}
 		if (ae.getSource() == modifierfiche) {
-			Fichemaintenance retour2;
-			
-			Client client = DAO.ClientDAO.getClient(Integer.parseInt(this.textFieldclient.getText()));
+			int retour2;
+			Client client = ClientDAO.getClient(Integer.parseInt(this.textFieldclient.getText()));
 			Devis devis = DevisDAO.getDevis(Integer.parseInt(this.textFielddevis.getText()));
-			Fichemaintenance a = new Fichemaintenance(Integer.parseInt(this.textFieldid.getText()), client, devis,
-					this.textFieldcategorie.getText(), this.textFieldcommentaire.getText());
+			Fichemaintenance a = new Fichemaintenance(Integer.parseInt(this.textFieldid.getText()), client, devis,this.textFieldcategorie.getText(),this.textFieldcommentaire.getText());
 			// on demande à la classe de communication d'envoyer l'Station
 			// dans la table Station
-			retour2 = DAO.FichemaintenanceDAO.update(a);
+			if(client == null){
+			System.out.println("hyhy");}
+			retour2 = FichemaintenanceDAO.update(a);
 			// affichage du nombre de lignes ajoutées
 			// dans la bdd pour vérification
-			System.out.println("" + retour + " ligne ajoutée ");
-			if (retour2 != null)
+			if (retour2 != 0)
 				JOptionPane.showMessageDialog(this, "Fiche update !");
 			else
 				JOptionPane.showMessageDialog(this, "erreur update fiche", "Erreur", JOptionPane.ERROR_MESSAGE);

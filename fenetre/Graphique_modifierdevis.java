@@ -124,22 +124,16 @@ public class Graphique_modifierdevis extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		int retour1;
 		if (ae.getSource() == choixdevis) {
-			String nom;
-			String categorie;
-			String client;
-			String date;
 			Devis retour;
-			retour=DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText()));
-			labelnom.setText(DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getNomdevis());
-			labelcategorie.setText(DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getCategorie());
-			labelclient.setText(Integer.toString(DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getClient().getId()));
-			labeldate.setText(DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getDate());
+			retour = DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText()));
+			labelnom.setText("nom dans la bdd=		"+DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getNomdevis());
+			labelcategorie.setText("categorie dans la bdd=		"+DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getCategorie());
+			labelclient.setText("id client dans la bdd=		"+Integer.toString(DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getClient().getId()));
+			labeldate.setText("date dans la bdd=		"+DevisDAO.getDevis(Integer.parseInt(this.textFieldid.getText())).getDate());
 			if (retour != null)
 				JOptionPane.showMessageDialog(this, "Devis choisie !");
 			else
 				JOptionPane.showMessageDialog(this, "erreur choix du devis", "Erreur", JOptionPane.ERROR_MESSAGE);
-			
-			
 
 		}
 		if (ae.getSource() == modifierdevis) {

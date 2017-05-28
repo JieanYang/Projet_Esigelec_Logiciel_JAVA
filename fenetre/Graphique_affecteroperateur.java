@@ -93,15 +93,15 @@ import models.Fichemaintenance;
 		}
 
 		public void actionPerformed(ActionEvent ae) {
-			Fichemaintenance retour1;
+			int retour1;
 			if (ae.getSource() == affecteroperateur) {
 				try {
 					retour1 = FichemaintenanceDAO.affecteroperateur(Integer.parseInt(this.textFieldmaintenance.getText()),
 							Integer.parseInt(this.textFieldoperateur.getText()));
 					// affichage du nombre de lignes modifie
 					// dans la bdd pour vérification
-					System.out.println("" + retour + " ligne ajoutée ");
-					if (retour1 != null)
+					System.out.println("" + retour1 + " ligne ajoutée ");
+					if (retour1 != 0)
 						JOptionPane.showMessageDialog(this, "operateur affecter !");
 					else
 						JOptionPane.showMessageDialog(this, "erreur affectation operateur", "Erreur", JOptionPane.ERROR_MESSAGE);

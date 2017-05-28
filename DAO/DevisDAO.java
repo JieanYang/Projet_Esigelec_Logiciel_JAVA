@@ -92,6 +92,51 @@ public class DevisDAO {
 
 		}
 		/**
+		 * permet de mettre un client sur le devis 
+		 * 
+		 */
+		public static int client(int client, int id) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			int retour = 0;
+
+			// connexion à la base de données
+			try {
+
+				// tentative de connexion
+				con = DriverManager.getConnection(URL, LOGIN, PASS);
+				// préparation de l'instruction SQL, chaque ? représente une valeur
+				// à communiquer dans l'insertion
+				// les getters permettent de récupérer les valeurs des attributs
+				// souhaités
+				ps = con.prepareStatement(
+						"UPDATE DEVIS_DVI SET DVI_CLIENT_ID= ? WHERE DVI_ID = ?");
+				ps.setInt(1, client);
+				ps.setInt(2, id);
+			
+
+				// Exécution de la requête
+				retour = ps.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// fermeture du preparedStatement et de la connexion
+				try {
+					if (ps != null)
+						ps.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if (con != null)
+						con.close();
+				} catch (Exception ignore) {
+				}
+			}
+			return retour;
+
+		}
+		/**
 		 * permet d'update un devis 
 		 * 
 		 */
@@ -110,7 +155,7 @@ public class DevisDAO {
 				// les getters permettent de récupérer les valeurs des attributs
 				// souhaités
 				ps = con.prepareStatement(
-						"UPDATE FROM DEVIS_DVI SET DVI_NOM= ?, DVI_CLIENT_ID= ?, DVI_CATEGORIE= ?, DVI_DATE= ? WHERE DVI_ID = ?)");
+						"UPDATE DEVIS_DVI SET DVI_NOM= ?, DVI_CLIENT_ID= ?, DVI_CATEGORIE= ?, DVI_DATE= ? WHERE DVI_ID = ?");
 				ps.setString(1, devis.getNomdevis());
 				ps.setInt(2, devis.getClient().getId());
 				ps.setString(3, devis.getCategorie());

@@ -39,7 +39,7 @@ public class FactureDB {
 			con =DriverManager.getConnection(URL, LOGIN, PASS);
 			
 			ps = con.prepareStatement(//insert contents in oracle
-					"INSERT INTO FACTURE_FAC (FAC_id,FAC_client_id, FAC_modepaiement,FAC_num,FAC_date,FAC_DEVIS) VALUES (?, ?, ?, ?,?,?)");
+					"INSERT INTO FACTURE_FAC (FAC_id,FAC_client_id, FAC_modepaiement,FAC_num,FAC_date,FAC_id_D) VALUES (?, ?, ?, ?,?,?)");
 			
 			ps.setInt(1,f.getId());//Id of devis, une public facon dans Devis.java
 			ps.setInt(2,f.getClient().getSiret());//facon dans client.java

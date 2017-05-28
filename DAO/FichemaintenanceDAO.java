@@ -201,20 +201,23 @@ public class FichemaintenanceDAO {
  * @param operateur
  * @return void
  */
-	public static Fichemaintenance affecteroperateur(int id, int operateur) {
+	public static int affecteroperateur(int id, int operateur) {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Fichemaintenance retour = null;
+		int retour = 0;
 
 		// connexion à la base de données
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA SET Operateur_FMA = ? WHERE FMA_ID = ?");
+			ps = con.prepareStatement("UPDATE FICHEMAINTENANCE_FMA SET FMA_OPERATEUR = ? WHERE FMA_ID = ?");
 			ps.setInt(1, operateur);
 			ps.setInt(2, id);
+			
+			//execute la requete
+			retour=ps.executeUpdate();
 
 		} catch (Exception ee) {
 			ee.printStackTrace();
@@ -246,21 +249,24 @@ public class FichemaintenanceDAO {
 	 * @return le nombre de ligne update de la base de donnee
 	 */
 	
-	public static Fichemaintenance update(Fichemaintenance fichemaintenance) {
+	public static int update(Fichemaintenance fichemaintenance) {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Fichemaintenance retour = null;
+		int retour = 0;
 
 		// connexion à la base de données
 		try {
+
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA (SET FMA_CLIENT,FMA_CATEGORIE,FMA_COMMENTAIRE) VALUE (?��?,?) WHERE FMA_ID = ?");
+			ps = con.prepareStatement("UPDATE FICHEMAINTENANCE_FMA SET FMA_CLIENT=?,FMA_CATEGORIE=?,FMA_COMMENTAIRE=? WHERE FMA_ID = ?");
 			ps.setInt(1, fichemaintenance.getClient().getId());
 			ps.setString(2, fichemaintenance.getCategorie());
 			ps.setString(3, fichemaintenance.getCommentaire());
 			ps.setInt(4, fichemaintenance.getId());
+			
+			retour = ps.executeUpdate();
 			
 
 		} catch (Exception ee) {

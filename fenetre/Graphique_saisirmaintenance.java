@@ -95,6 +95,7 @@ public class Graphique_saisirmaintenance extends JPanel implements ActionListene
 
 	public void actionPerformed(ActionEvent ae) {
 		int retour1;
+		int retour2;
 		if (ae.getSource() == creerdemande) {
 			Client client = ClientDAO.getClient(Integer.parseInt(this.textFieldclient.getText()));
 			Devis devis = DevisDAO.creerdevis();
@@ -103,6 +104,8 @@ public class Graphique_saisirmaintenance extends JPanel implements ActionListene
 			// on demande à la classe de communication d'envoyer l'Station
 			// dans la table Station
 			retour1 = FichemaintenanceDAO.ajouter(a);
+			retour2 = DevisDAO.client(client.getId(),devis.getId());
+			System.out.println(devis.getId());
 			// affichage du nombre de lignes ajoutées
 			// dans la bdd pour vérification
 			System.out.println("" + retour + " ligne ajoutée ");
