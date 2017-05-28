@@ -21,8 +21,8 @@ public class FichemaintenanceDAO {
 	 * sont des constantes
 	 */
 	final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	final static String LOGIN = "BDD7"; // exemple BDD1
-	final static String PASS = "BDD7"; // exemple BDD1
+	final static String LOGIN = "PVL"; // exemple BDD1
+	final static String PASS = "BDD1"; // exemple BDD1
 
 	/**
 	 * Constructeur de la classe
@@ -167,8 +167,8 @@ public class FichemaintenanceDAO {
 			rs = ps.executeQuery();
 			// passe à la première (et unique) ligne retournée
 			if (rs.next()) {
-				Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
-				Devis devis = DevisDAO.getDevis(rs.getInt("DVI_ID"));
+				Client client = ClientDAO.getClient(rs.getInt("FMA_CLIENT"));
+				Devis devis = DevisDAO.getDevis(rs.getInt("FMA_DEVIS"));
 				retour = new Fichemaintenance(rs.getInt("FMA_ID"), client, devis, rs.getString("FMA_CATEGORIE"));
 
 			}
@@ -255,9 +255,8 @@ public class FichemaintenanceDAO {
 
 		// connexion à la base de données
 		try {
-
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA SET FMA_CLIENT = ?,FMA_CATEGORIE=? FMA_COMMENTAIRE=? WHERE FMA_ID = ?");
+			ps = con.prepareStatement("UPDATE FROM FICHEMAINTENANCE_FMA (SET FMA_CLIENT,FMA_CATEGORIE,FMA_COMMENTAIRE) VALUE (?��?,?) WHERE FMA_ID = ?");
 			ps.setInt(1, fichemaintenance.getClient().getId());
 			ps.setString(2, fichemaintenance.getCategorie());
 			ps.setString(3, fichemaintenance.getCommentaire());

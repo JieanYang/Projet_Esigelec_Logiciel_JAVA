@@ -20,7 +20,7 @@ public class DevisDAO {
 		 * sont des constantes
 		 */
 		final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-		final static String LOGIN = "Diesnis"; // exemple BDD1
+		final static String LOGIN = "PVL"; // exemple BDD1
 		final static String PASS = "BDD1"; // exemple BDD1
 
 		/**
@@ -269,7 +269,6 @@ public class DevisDAO {
 				// passe à la première (et unique) ligne retournée
 				if (rs.next()) {
 					Client client = ClientDAO.getClient(rs.getInt("DVI_CLIENT_ID"));
-				
 					retour = new Devis(rs.getInt("DVI_ID"), rs.getString("DVI_NOM"),client,
 							rs.getString("DVI_CATEGORIE"),rs.getString("DVI_DATE"));
 				}

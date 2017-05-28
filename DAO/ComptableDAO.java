@@ -19,8 +19,8 @@ import models.Comptable;
 		 * sont des constantes
 		 */
 		final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-		final static String LOGIN = "BDD7"; // exemple BDD1
-		final static String PASS = "BDD7"; // exemple BDD1
+		final static String LOGIN = "PVL"; // exemple BDD1
+		final static String PASS = "BDD1"; // exemple BDD1
 
 		/**
 		 * Constructeur de la classe
