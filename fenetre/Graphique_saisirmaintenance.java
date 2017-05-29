@@ -108,7 +108,7 @@ public class Graphique_saisirmaintenance extends JPanel implements ActionListene
 			System.out.println(devis.getId());
 			// affichage du nombre de lignes ajoutées
 			// dans la bdd pour vérification
-			System.out.println("" + retour + " ligne ajoutée ");
+			System.out.println("" + retour1 + " ligne ajoutée ");
 			if (retour1 == 1)
 				JOptionPane.showMessageDialog(this, "maintenance  ajouter !");
 			else

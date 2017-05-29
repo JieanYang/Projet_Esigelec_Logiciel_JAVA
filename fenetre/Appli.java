@@ -12,10 +12,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DAO.MdpDAO;
 import models.Client;
 
 public class Appli extends JFrame implements ActionListener {
-
+/**
+ * panel principale
+ */
 	private JPanel containerPanel_Authentifier;
 
 	private JLabel compte_label_authentifier;
@@ -71,10 +74,22 @@ public class Appli extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-		int retour1;
+		String retour1;
 		if (ae.getSource() == yes_authentifier) {
-			Graphique ap = new Graphique();
-			this.dispose();
+			retour1 = MdpDAO.RespMdp(Integer.parseInt(this.compte_authentifier.getText()));
+			System.out.println(retour1);
+			if(retour1.equals(this.passeword_authentifier.getText())){
+				System.out.println(retour1);
+				
+				JOptionPane.showMessageDialog(this,"mauvais password/login !");
+				}
+			else {Graphique ap = new Graphique();
+			this.dispose();	}
+			
+				
+			
+			
+			
 
 
 		}

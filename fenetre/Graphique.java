@@ -34,6 +34,8 @@ public class Graphique extends JFrame implements ActionListener {
 	private JPanel modifierdevis;
 	private JPanel modifierfiche;
 	private JPanel editionrapport;
+	private JPanel facturation;
+
 
 	/**
 	 * bouton de selection
@@ -72,6 +74,7 @@ public class Graphique extends JFrame implements ActionListener {
 		modifierfiche = new Graphique_modifierfiche(this);
 		modifierdevis = new Graphique_modifierdevis(this);
 		editionrapport = new Graphique_editionrapport(this);
+		facturation = new Graphique_facturation(this);
 
 		// choix du Layout pour ce conteneur
 		// il permet de gérer la position des éléments
@@ -107,11 +110,13 @@ public class Graphique extends JFrame implements ActionListener {
 		boutonmodifierfiche.addActionListener(this);
 
 		boutonfacturation = new JButton("facturation de preComptable");
+		boutonfacturation.addActionListener(this);
 
 		boutonsuivireglement = new JButton("suivi du reglement");
 		boutonsuivireglement.addActionListener(this);
 
 		boutoncloturedossier = new JButton("cloture du dossier");
+		boutoncloturedossier.addActionListener(this);
 
 		boutoneditionrapport = new JButton("edition du rapport d'activite au client");
 		boutoneditionrapport.addActionListener(this);
@@ -155,14 +160,17 @@ public class Graphique extends JFrame implements ActionListener {
 			this.setContentPane(maintenance);
 		}
 		if (ae.getSource() == boutonsuivireglement) {
-			this.dispose();
 			Graphique_Yang apa = new Graphique_Yang();
+			this.dispose();
 		}
 		if (ae.getSource() == boutonsaisiroperateur) {
 			this.setContentPane(operateur);
 		}
 		if (ae.getSource() == boutonaffecteroperateur) {
 			this.setContentPane(affecter);
+		}
+		if (ae.getSource() == boutonfacturation) {
+			this.setContentPane(facturation);
 		}
 		if (ae.getSource() == boutonsaisirclient) {
 			this.setContentPane(client);
@@ -178,6 +186,9 @@ public class Graphique extends JFrame implements ActionListener {
 		}
 		if (ae.getSource() == boutoneditionrapport) {
 			this.setContentPane(editionrapport);
+		}
+		if (ae.getSource() == boutoncloturedossier) {
+			Graphique_cloturedossier apa = new Graphique_cloturedossier(1);
 		}
 		this.revalidate();
 	}

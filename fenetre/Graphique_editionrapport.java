@@ -91,7 +91,7 @@ public class Graphique_editionrapport extends JPanel implements ActionListener {
 		this.setBackground(Color.lightGray);
 		// instantiation des composants graphiques
 
-		creerrapport = new JButton("creer un client");
+		creerrapport = new JButton("creer rapport");
 		creerrapport.addActionListener(this);
 
 		retour = new JButton("retour");
@@ -146,7 +146,7 @@ public class Graphique_editionrapport extends JPanel implements ActionListener {
 			retour1 = RapportactiviteDAO.ajouter(a);
 			// affichage du nombre de lignes ajoutées
 			// dans la bdd pour vérification
-			System.out.println("" + retour + " ligne ajoutée ");
+			System.out.println("" + retour1 + " ligne ajoutée ");
 			if (retour1 == 1)
 				JOptionPane.showMessageDialog(this, "Rapport ajouter !");
 			else

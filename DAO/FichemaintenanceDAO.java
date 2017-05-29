@@ -243,6 +243,53 @@ public class FichemaintenanceDAO {
 
 	}
 	/**
+	 * permet de savoir si une maintenance est valider ou pas 
+	 * @param valide
+	 * @return yes/no
+	 */
+	
+	public static int valider(int id,String valide) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int retour = 0;
+
+		// connexion à la base de données
+		try {
+
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("UPDATE FICHEMAINTENANCE_FMA SET FMA_VALIDATION=? WHERE FMA_ID = ?");
+			ps.setString(1, valide);
+			ps.setInt(2, id);
+			
+			retour = ps.executeUpdate();
+			
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		} finally {
+			// fermeture du ResultSet, du PreparedStatement et de la Connexion
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (Exception ignore) {
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (Exception ignore) {
+			}
+		}
+		return retour;
+
+	}
+	/**
 	 * 
 	 * @param id
 	 * @param fiche de maintenance

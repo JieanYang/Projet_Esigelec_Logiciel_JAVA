@@ -40,7 +40,7 @@ public class MdpDAO {
  * @param mdp
  * @return mdp de la base de donnee associer a l'id de l'operateur
  */
-	public String OptMdp(int id ,String mdp) {
+	public String OptMdp(int id) {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -92,7 +92,7 @@ public class MdpDAO {
 	 * @return mdp associer a l'id du comptable
 	 */
 
-	public String CompMdp(int id ,String mdp) {
+	public String CompMdp(int id) {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -144,13 +144,13 @@ public class MdpDAO {
 	 * @param mdp
 	 * @return le mdp associer a l'id du responsable
 	 */
-	public String RespMdp(int id ,String mdp) {
+	public static String RespMdp(int id ) {
 
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String retour = null;
+		String retour = "";
 
 		// connexion à la base de données
 		try {
@@ -165,7 +165,7 @@ public class MdpDAO {
 			rs = ps.executeQuery();
 			// passe à la première (et unique) ligne retournée
 			if (rs.next())
-				retour = (rs.getString("RSP_MDP"));
+				retour = rs.getString("RSP_MDP");
 
 		} catch (Exception ee) {
 			ee.printStackTrace();

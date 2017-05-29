@@ -145,7 +145,7 @@ public class Graphique_modifierdevis extends JPanel implements ActionListener {
 			retour1 = DevisDAO.update(a);
 			// affichage du nombre de lignes ajoutées
 			// dans la bdd pour vérification
-			System.out.println("" + retour + " ligne ajoutée ");
+			System.out.println("" + retour1 + " ligne ajoutée ");
 			if (retour1 == 1)
 				JOptionPane.showMessageDialog(this, "Devis modifier !");
 			else

@@ -91,10 +91,12 @@ public class DevisDAO {
 			return d;
 
 		}
-		/**
-		 * permet de mettre un client sur le devis 
-		 * 
-		 */
+	/**
+	 * permet de mettre le client du devis
+	 * @param client
+	 * @param id
+	 * @return
+	 */
 		public static int client(int client, int id) {
 			Connection con = null;
 			PreparedStatement ps = null;
@@ -136,10 +138,11 @@ public class DevisDAO {
 			return retour;
 
 		}
-		/**
-		 * permet d'update un devis 
-		 * 
-		 */
+	/**
+	 * permet d'update un devis
+	 * @param devis
+	 * @return
+	 */
 		public int update(Devis devis) {
 			Connection con = null;
 			PreparedStatement ps = null;
@@ -161,6 +164,50 @@ public class DevisDAO {
 				ps.setString(3, devis.getCategorie());
 				ps.setString(4, devis.getDate());
 				ps.setInt(5, devis.getId());
+			
+
+				// Exécution de la requête
+				retour = ps.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// fermeture du preparedStatement et de la connexion
+				try {
+					if (ps != null)
+						ps.close();
+				} catch (Exception ignore) {
+				}
+				try {
+					if (con != null)
+						con.close();
+				} catch (Exception ignore) {
+				}
+			}
+			return retour;
+
+		}
+		public int facture(int id,int prix,int surcout,int taxe,String description) {
+			Connection con = null;
+			PreparedStatement ps = null;
+			int retour = 0;
+
+			// connexion à la base de données
+			try {
+
+				// tentative de connexion
+				con = DriverManager.getConnection(URL, LOGIN, PASS);
+				// préparation de l'instruction SQL, chaque ? représente une valeur
+				// à communiquer dans l'insertion
+				// les getters permettent de récupérer les valeurs des attributs
+				// souhaités
+				ps = con.prepareStatement(
+						"UPDATE DEVIS_DVI SET DVI_PRIX= ?, DVI_SURCOUT= ?, DVI_TAXE= ?, DVI_DESCRIPTION= ? WHERE DVI_ID = ?");
+				ps.setInt(1,prix );
+				ps.setInt(2,surcout );
+				ps.setInt(3, taxe);
+				ps.setString(4, description);
+				ps.setInt(5, id);
 			
 
 				// Exécution de la requête

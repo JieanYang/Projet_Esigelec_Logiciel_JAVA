@@ -171,8 +171,6 @@ public class Graphique_modifierfiche extends JPanel implements ActionListener {
 			Fichemaintenance a = new Fichemaintenance(Integer.parseInt(this.textFieldid.getText()), client, devis,this.textFieldcategorie.getText(),this.textFieldcommentaire.getText());
 			// on demande à la classe de communication d'envoyer l'Station
 			// dans la table Station
-			if(client == null){
-			System.out.println("hyhy");}
 			retour2 = FichemaintenanceDAO.update(a);
 			// affichage du nombre de lignes ajoutées
 			// dans la bdd pour vérification
